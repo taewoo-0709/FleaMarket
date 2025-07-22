@@ -1,0 +1,19 @@
+@media screen and (min-width: 1400px) {
+  .app {
+    max-width: 1540px;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  background-color: black;
+}
+
+.header img {
+  height: 60px;
+  padding: 15px 0px;
+  width: 30%;
+}
