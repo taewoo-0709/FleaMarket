@@ -33,10 +33,6 @@ Laravel 環境構築
 
 ・nginx 1.21.1
 
-## ER 図
-
-<img width="512" alt="スクリーンショット 2025-06-29 9 28 48" src="https://github.com/user-attachments/assets/a0946dd4-c704-41fd-acde-7b5b5f3b17b1" />
-
 ## URL
 
 ・開発環境：http://localhost/

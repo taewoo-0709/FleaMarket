@@ -12,21 +12,21 @@
       @csrf
       <div class="login-form__group">
         <label class="login-form__label" for="email">メールアドレス</label>
-        <input class="login-form__input" type="email" name="email" id="email">
-        <p class="register-form__error-message">
+        <input class="login-form__input" type="text" name="email" id="email" value="{{ old('email') }}">
           @error('email')
+          <p class="login-form__error-message">
           {{ $message }}
+          </p>
           @enderror
-        </p>
       </div>
       <div class="login-form__group">
         <label class="login-form__label" for="password">パスワード</label>
         <input class="login-form__input" type="password" name="password" id="password">
-        <p class="register-form__error-message">
           @error('password')
+          <p class="login-form__error-message">
           {{ $message }}
+          </p>
           @enderror
-        </p>
       </div>
       <input class="login-form__btn btn" type="submit" value="ログインする">
       <a class="login-form__link" href="/register">会員登録はこちら</a>

@@ -13,7 +13,7 @@ class ExhibitionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class ExhibitionRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|string|max:255',
+            'content' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png',
+            'category_id' => 'required|exists:categories,id',
+            'condition_id' => 'required|exists:conditions,id',
+            'price' => 'required|numeric|min:0',
         ];
     }
 }
