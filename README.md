@@ -24,7 +24,7 @@ Laravel 環境構築
 ・ php artisan db:seed
 
 ## ER図
-・URL:<img width="781" height="981" alt="diagrams drawio" src="https://github.com/user-attachments/assets/8f7d4da0-0965-4ac4-9eac-3b8b8778d0db" />
+・URL:/Users/oharuneru/coachtech/laravel/mockcase/flea-market/src/diagrams.drawio.png
 
 
 ## 使用技術 🔗
