@@ -23,9 +23,6 @@ use App\Models\User;
 
 class FortifyServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         $this->app->singleton(LoginViewResponse::class, function () {
@@ -47,9 +44,6 @@ class FortifyServiceProvider extends ServiceProvider
         });
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
         Fortify::authenticateUsing(function (Request $request) {

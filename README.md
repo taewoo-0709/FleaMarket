@@ -23,6 +23,9 @@ Laravel 環境構築
 
 ・ php artisan db:seed
 
+## ER図
+・URL:![alt text](diagrams.drawio.png)
+
 ## 使用技術 🔗
 
 ・PHP 8.1.33
