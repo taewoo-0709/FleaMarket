@@ -28,7 +28,11 @@ class ItemController extends Controller
       if ($tab === 'mylist' && Auth::check()) {
         $items = Auth::user()->likedItems()->latest()->get();
       } else {
-        $items = Item::latest()->get();
+        $items = Item::when(Auth::check(), function ($query) {
+              return $query->where('user_id', '!=', Auth::id());
+                  })
+                  ->latest()
+                  ->get();
       }
 
       return view('index', compact('items', 'tab'));

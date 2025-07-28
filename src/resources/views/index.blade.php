@@ -18,7 +18,7 @@
           <div class="item-image">
             <img src="{{ asset('storage/' . $item->image_url) }}" alt="商品画像">
           </div>
-          <p class="item-name">{{ $item->name }}</p>
+          <p class="item-title">{{ $item->title }}</p>
           @if($item->order)
             <span class="sold-label">Sold</span>
           @endif
@@ -40,7 +40,7 @@
         <div class="item-image">
           <img src="{{ asset('storage/' . $item->image_url) }}" alt="商品画像">
         </div>
-        <p class="item-name">{{ $item->name }}</p>
+        <p class="item-title">{{ $item->title }}</p>
         @if($item->order)
           <span class="sold-label">Sold</span>
         @endif

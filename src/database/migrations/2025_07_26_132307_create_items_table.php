@@ -22,7 +22,7 @@ class CreateItemsTable extends Migration
             $table->string('title');
             $table->string('brand')->nullable();
             $table->string('item_explain', 255);
-            $table->string('price');
+            $table->integer('price');
             $table->timestamps();
         });
     }
