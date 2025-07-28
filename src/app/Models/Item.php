@@ -44,4 +44,9 @@ class Item extends Model
     {
         return $this->hasOne(Order::class);
     }
+
+    public function likedUsers()
+    {
+        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
+    }
 }

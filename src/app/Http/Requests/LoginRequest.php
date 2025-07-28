@@ -23,8 +23,14 @@ class LoginRequest extends FormRequest
     {
         return [
             'email.required' => 'メールアドレスを入力してください',
+            'email.email' => 'メールアドレスはメール形式で入力してください',
             'email.exists' => 'ログイン情報が登録されていません',
             'password.required' => 'パスワードを入力してください',
         ];
+    }
+
+    public function validationData()
+    {
+        return $this->all();
     }
 }

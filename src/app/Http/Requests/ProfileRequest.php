@@ -26,8 +26,19 @@ class ProfileRequest extends FormRequest
         return [
             'avatar' => 'nullable|image|mimes:jpeg,png',
             'name' => 'required|string|max:20',
-            'postal_code' => 'required|string|size:8',
+            'postcode' => 'required|string|size:8',
             'address' => 'required|string|max:255',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'ユーザー名を入力してください',
+            'postcode.required' => '郵便番号を入力してください',
+            'postcode.size' => '郵便番号はハイフンを含む8文字で入力してください',
+            'address.required' => '住所を入力してください',
+            'address.max' => '住所は255文字以内で入力してください',
         ];
     }
 }

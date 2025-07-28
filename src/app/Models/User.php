@@ -21,7 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'avater',
+        'avatar',
         'postcode',
         'address',
         'building',
@@ -53,5 +53,10 @@ class User extends Authenticatable
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function likedItems()
+    {
+        return $this->belongsToMany(Item::class, 'likes')->withTimestamps();
     }
 }

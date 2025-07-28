@@ -1,17 +1,58 @@
-@media screen and (max-width: 1540px) {
+.item-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 100%;
+    padding: 0 1rem;
+}
+
+.empty-alart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 250px;
+    width: 100%;
+}
+
+.empty-alart p {
+    text-align: center;
+}
+
+@media screen and (min-width: 768px) and (max-width: 850px) {
     .item-list {
-        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        max-width: 850px;
+        margin: 0 auto;
+    }
+
+    .empty-alart {
+        min-height: 250px;
+        margin-left: 175px;
+    }
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1540px){
+    .item-list {
         grid-template-columns: repeat(4, 1fr);
         gap: 1.5rem;
+        max-width: 1540px;
+        margin: 0 auto;
+    }
+
+    .empty-alart {
+        min-height: 300px;
+        margin-left: 470px;
     }
 }
 
 .tab-wrapper {
     display: flex;
-    gap: 2rem;
+    gap: 50px;
     border-bottom: 1px solid #aaa;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
+    padding-bottom: 10px;
+    padding-left: 100px;
+    margin-top: 50px;
 }
 .tab {
     font-weight: bold;
