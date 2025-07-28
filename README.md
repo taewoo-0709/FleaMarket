@@ -26,9 +26,6 @@ Laravel 環境構築
 ## ER図
 <img width="495" height="622" alt="スクリーンショット 2025-07-26 19 50 02" src="https://github.com/user-attachments/assets/0774b1ab-a66a-4015-84da-8557bdfe557c" />
 
-
-
-
 ## 使用技術 🔗
 
 ・PHP 8.1.33
