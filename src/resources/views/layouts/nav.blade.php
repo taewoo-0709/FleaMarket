@@ -2,7 +2,9 @@
 
 @section('link')
 <div class="header-nav__item">
-  <input class="header-nav__search" type="text" placeholder="なにをお探しですか？">
+  <form action="/" method="get">
+    <input class="header-nav__search" type="text" name="keyword" value="{{ request('keyword') }}"  placeholder="なにをお探しですか？">
+  </form>
 </div>
 @if (Auth::check())
 <div class="header-nav">

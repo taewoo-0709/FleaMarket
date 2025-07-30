@@ -24,17 +24,29 @@ class ItemController extends Controller
     public function index (Request $request)
     {
       $tab = $request->input('tab', 'recommend');
+      $keyword = $request->input('keyword');
+
+      $items = collect();
 
       if ($tab === 'mylist' && Auth::check()) {
-        $items = Auth::user()->likedItems()->latest()->get();
+        $query = Auth::user()->likedItems()->latest();
+
+        if (!empty($keyword)) {
+          $query->where('title', 'like', '%' . $keyword . '%');
+        }
+        $items = $query->get();
+
       } else {
         $items = Item::when(Auth::check(), function ($query) {
               return $query->where('user_id', '!=', Auth::id());
+                  })
+                  ->when(!empty($keyword), function ($query) use ($keyword) {
+                    return $query->where('title', 'like', '%' . $keyword . '%');
                   })
                   ->latest()
                   ->get();
       }
 
-      return view('index', compact('items', 'tab'));
+      return view('index', compact('items', 'tab', 'keyword'));
     }
 }

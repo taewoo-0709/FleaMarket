@@ -7,6 +7,7 @@ use App\Http\Controllers\OrderController;
 
 
 Route::middleware('auth')->group(function () {
+    Route::get('/mypage', [ProfileController::class, 'show']);
     Route::get('/mypage/profile', [ProfileController::class, 'edit']);
     Route::patch('/mypage/profile', [ProfileController::class, 'update']);
 });

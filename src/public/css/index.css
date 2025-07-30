@@ -6,17 +6,6 @@
     padding: 0 1rem;
 }
 
-.empty-alart {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 250px;
-    width: 100%;
-}
-
-.empty-alart p {
-    text-align: center;
-}
 
 @media screen and (min-width: 768px) and (max-width: 850px) {
     .item-list {
@@ -24,11 +13,6 @@
         gap: 1.5rem;
         max-width: 850px;
         margin: 0 auto;
-    }
-
-    .empty-alart {
-        min-height: 250px;
-        margin-left: 175px;
     }
 }
 
@@ -38,11 +22,6 @@
         gap: 1.5rem;
         max-width: 1540px;
         margin: 0 auto;
-    }
-
-    .empty-alart {
-        min-height: 300px;
-        margin-left: 470px;
     }
 }
 

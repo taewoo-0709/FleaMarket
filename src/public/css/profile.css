@@ -1,0 +1,161 @@
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 4rem;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.profile-image img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #ccc;
+}
+
+.profile-info {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  flex-direction: row;
+}
+
+.profile-info h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.edit-button {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 0.5rem 1rem;
+  border: 1px solid red;
+  color: red;
+  border-radius: 4px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.item-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 100%;
+    padding: 0 1rem;
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 850px) {
+.profile-header {
+    align-items: center;
+  }
+
+  .profile-image img {
+    margin-left: 4rem;
+  }
+
+  .profile-info h2 {
+    margin-right: 5rem;
+  }
+
+  .edit-button {
+    align-self: auto;
+  }
+
+  .item-list {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      max-width: 850px;
+      margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1540px){
+.profile-header {
+    justify-content: flex-start;
+    padding-left: 10rem;
+    padding-right: 10rem;
+  }
+
+  .profile-image {
+    margin-left: 10rem;
+    margin-right: 1rem;
+  }
+
+  .profile-info {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20rem;
+    flex-grow: 0;
+  }
+
+  .profile-info h2 {
+    margin: 0;
+  }
+
+  .edit-button {
+    margin-left: auto;
+  }
+
+  .item-list {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      max-width: 1540px;
+      margin: 0 auto;
+  }
+}
+
+.tab-wrapper {
+    display: flex;
+    gap: 50px;
+    border-bottom: 1px solid #aaa;
+    padding-bottom: 10px;
+    padding-left: 100px;
+    margin-top: 50px;
+}
+.tab {
+    font-weight: bold;
+    color: #555;
+    text-decoration: none;
+}
+.tab.active {
+    color: red;
+}
+
+.item-card {
+    position: relative;
+}
+.item-image {
+    background-color: #ddd;
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+}
+.item-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.item-title {
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.sold-label {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: red;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+}

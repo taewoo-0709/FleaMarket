@@ -45,6 +45,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function items()
+    {
+    return $this->hasMany(Item::class);
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
@@ -58,5 +63,22 @@ class User extends Authenticatable
     public function likedItems()
     {
         return $this->belongsToMany(Item::class, 'likes')->withTimestamps();
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function purchasedItems()
+    {
+        return $this->hasManyThrough(
+            Item::class,
+            Order::class,
+            'user_id',
+            'id',
+            'id',
+            'item_id'
+        );
     }
 }
