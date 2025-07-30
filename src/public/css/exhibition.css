@@ -1,0 +1,177 @@
+.exhibition-form__inner {
+  display: flex;
+  justify-content: center;
+}
+
+.exhibition-form__heading {
+  text-align: center;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.exhibition-form__form {
+  padding: 64px 96px;
+  width: 50vw;
+}
+
+.detail-select {
+  margin-top: 40px;
+  font-size: 20px;
+  color: gray;
+  border-bottom: 1px solid gray;
+}
+
+@media screen and (min-width: 1400px) {
+  .exhibition-form__heading {
+    max-width: 1540px;
+    width: 60vw;
+  }
+}
+
+.exhibition-image-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.exhibition-image {
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+}
+
+.exhibition-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 1px dotted gray;
+}
+
+.exhibition-image__label {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-left: 30px;
+  border: 1px solid #FF5555;
+  color: #FF5555;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.exhibition-image__input {
+  display: none;
+}
+
+.exhibition-form__group {
+  margin-top: 30px;
+}
+
+.exhibition-form__group:first-of-type {
+  margin-top: 0;
+}
+
+.exhibition-form__label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: bold;
+}
+
+.exhibition-form__label span {
+  color: #FF9494;
+  white-space: nowrap;
+}
+
+.exhibition-form__input {
+  display: block;
+  padding: 8px 12px;
+  width: 100%;
+  height: 48px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.exhibition-form__error-message {
+  color: #FF9494;
+}
+
+.category-button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 20px 0;
+}
+
+.category-button {
+  border: 1px solid #FF5555;
+  color: #FF5555;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: 0.2s;
+  user-select: none;
+}
+
+.category-button input[type="checkbox"] {
+  display: none;
+}
+
+.category-button input[type="checkbox"]:checked + span,
+.category-button input[type="checkbox"]:checked ~ * {
+  color: #fff;
+  background-color: #FF5555;
+}
+
+.exhibition-form__textarea {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.exhibition-form__btn {
+  margin-top: 50px;
+  width: 100%;
+  height: 48px;
+  text-align: center;
+  color: #fff;
+  background-color: #FF5555;
+  border: none;
+  border-radius: 3px;
+}
+
+@media (min-width: 768px) and (max-width: 850px) {
+  .exhibition-form__group {
+    max-width: 100%;
+  }
+
+  .exhibition-form__input {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .exhibition-form__btn {
+    max-width: 200px;
+  }
+
+  .exhibition-form__link {
+    white-space: nowrap;
+    display: inline-block;
+    margin-left: 2rem;
+  }
+
+  .exhibition-image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .exhibition-image__label {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+  }
+}

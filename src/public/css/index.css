@@ -25,6 +25,13 @@
     }
 }
 
+.alert-message {
+    padding: 10px 30px;
+    border-color: #badbcc;
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
 .tab-wrapper {
     display: flex;
     gap: 50px;
@@ -33,11 +40,13 @@
     padding-left: 100px;
     margin-top: 50px;
 }
+
 .tab {
     font-weight: bold;
     color: #555;
     text-decoration: none;
 }
+
 .tab.active {
     color: red;
 }
@@ -51,6 +60,7 @@
     padding-top: 100%;
     position: relative;
 }
+
 .item-image img {
     position: absolute;
     top: 0;
@@ -59,6 +69,7 @@
     height: 100%;
     object-fit: cover;
 }
+
 .item-title {
     margin-top: 0.5rem;
     font-size: 0.95rem;

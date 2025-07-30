@@ -10,6 +10,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/mypage', [ProfileController::class, 'show']);
     Route::get('/mypage/profile', [ProfileController::class, 'edit']);
     Route::patch('/mypage/profile', [ProfileController::class, 'update']);
+    Route::get('/sell', [ItemController::class, 'show']);
+    Route::post('/sell', [ItemController::class, 'store']);
 });
 
 Route::get('/', [ItemController::class, 'index']);

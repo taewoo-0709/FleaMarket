@@ -19,6 +19,10 @@ class Item extends Model
         'item_explain',
         'price',
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function comments()
     {
@@ -32,7 +36,7 @@ class Item extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'category_item');
     }
 
     public function condition()

@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="profile-update-form">
-  <h2 class="profile-update-form__heading content__heading">プロフィール設定</h2>
+  <h2 class="profile-update-form__heading">プロフィール設定</h2>
   <div class="profile-update-form__inner">
     <form class="profile-update-form__form" action="/mypage/profile" method="post" enctype="multipart/form-data">
       @csrf

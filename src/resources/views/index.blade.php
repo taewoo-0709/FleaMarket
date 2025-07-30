@@ -5,6 +5,13 @@
 @endsection
 
 @section('content')
+
+@if(session('message'))
+  <div class="alert-message">
+    {{ session('message') }}
+  </div>
+@endif
+
 <div class="tab-wrapper">
   <a class="tab {{ ($tab ?? '') === 'recommend' ? 'active' : '' }}" href="{{ url('/') }}?tab=recommend">おすすめ</a>
   <a class="tab {{ ($tab ?? '') === 'mylist' ? 'active' : '' }}" href="{{ url('/') }}?tab=mylist">マイリスト</a>

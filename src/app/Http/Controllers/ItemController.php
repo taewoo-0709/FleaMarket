@@ -49,4 +49,38 @@ class ItemController extends Controller
 
       return view('index', compact('items', 'tab', 'keyword'));
     }
+
+    public function show()
+    {
+        $categories = Category::all();
+        $conditions = Condition::all();
+
+        return view('exhibition', compact('categories', 'conditions'));
+    }
+
+    public function store(ExhibitionRequest $request)
+    {
+      $item = new Item();
+
+      $item->title = $request->title;
+      $item->brand = $request->brand;
+      $item->content = $request->content;
+      $item->price = $request->price;
+      $item->category_id = $request->category_id;
+      $item->condition_id = $request->condition_id;
+
+      if ($request->hasFile('image_url')) {
+          $path = $request->file('image_url')->store('items', 'public');
+          $item->image_url = $path;
+    }
+      $request->validate([
+        'category_id' => 'required|array|min:1',
+        'category_id.*' => 'exists:categories,id',
+      ]);
+
+      $item->user_id = Auth::id();
+      $item->save();
+
+    return redirect('/')->with('message', '商品を出品しました');
+  }
 }

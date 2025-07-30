@@ -38,7 +38,7 @@ class ProfileController extends Controller
 
         $user->update($profile);
 
-        return redirect('/');
+        return redirect('/')->with('message', 'プロフィールを更新しました');
     }
 
     public function show(Request $request)
