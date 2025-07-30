@@ -24,7 +24,7 @@ Laravel 環境構築
 ・ php artisan db:seed
 
 ## ER図
-<img width="495" height="622" alt="スクリーンショット 2025-07-26 19 50 02" src="https://github.com/user-attachments/assets/0774b1ab-a66a-4015-84da-8557bdfe557c" />
+<img width="471" height="646" alt="スクリーンショット 2025-07-30 16 14 40" src="https://github.com/user-attachments/assets/133eeaba-5383-465a-a9ba-1ef5f6c00db9" />
 
 ## 使用技術 🔗
 
