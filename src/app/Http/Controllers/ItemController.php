@@ -64,23 +64,50 @@ class ItemController extends Controller
 
       $item->title = $request->title;
       $item->brand = $request->brand;
-      $item->content = $request->content;
+      $item->item_explain = $request->item_explain;
       $item->price = $request->price;
-      $item->category_id = $request->category_id;
       $item->condition_id = $request->condition_id;
+      $item->user_id = Auth::id();
 
       if ($request->hasFile('image_url')) {
           $path = $request->file('image_url')->store('items', 'public');
           $item->image_url = $path;
     }
-      $request->validate([
-        'category_id' => 'required|array|min:1',
-        'category_id.*' => 'exists:categories,id',
-      ]);
 
-      $item->user_id = Auth::id();
       $item->save();
 
+      $item->categories()->attach($request->category_id);
+
     return redirect('/')->with('message', '商品を出品しました');
+  }
+
+  public function detailShow($item_id)
+  {
+      $item = Item::with('likes', 'likedUsers')->findOrFail($item_id);
+      return view('item', compact('item'));
+  }
+
+  public function postComment(CommentRequest $request, $item_id)
+  {
+    $comment = new Comment();
+    $comment->user_id = Auth::id();
+    $comment->item_id = $item_id;
+    $comment->comment = $request->input('comment');
+    $comment->save();
+
+    return redirect()->back();
+  }
+
+  public function toggleLike($item_id)
+  {
+    $item = Item::findOrFail($item_id);
+    $user = Auth::user();
+
+    if ($user->likedItems->contains($item->id)) {
+        $user->likedItems()->detach($item->id);
+    } else {
+        $user->likedItems()->attach($item->id);
+    }
+    return back();
   }
 }

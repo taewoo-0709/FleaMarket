@@ -24,12 +24,26 @@ class ExhibitionRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|max:255',
-            'content' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png',
+            'title' => 'required|string',
+            'item_explain' => 'required|string|max:255',
+            'image_url' => 'required|image|mimes:jpeg,png',
             'category_id' => 'required|exists:categories,id',
             'condition_id' => 'required|exists:conditions,id',
             'price' => 'required|numeric|min:0',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => '商品名を入力してください',
+            'item_explain.required' => '商品説明を入力してください',
+            'item_explain.max' => '255文字以内で入力してください',
+            'image_url.required' => '画像を選択してください',
+            'image_url.mimes' => 'ファイルデータは.jpegか.pngを選択してください',
+            'category_id.required' => 'カテゴリーを選択してください',
+            'condition_id.required' => '商品状態を選択してください',
+            'price.required' => '価格を入力してください',
         ];
     }
 }

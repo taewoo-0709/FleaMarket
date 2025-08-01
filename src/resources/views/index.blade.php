@@ -22,7 +22,9 @@
     @forelse($items as $item)
       <div class="item-card">
         <div class="item-image">
-          <img src="{{ asset('storage/' . $item->image_url) }}" alt="商品画像">
+          <a href="{{ route('items.detail', ['item_id' => $item->id]) }}">
+            <img src="{{ asset('storage/' . $item->image_url) }}" alt="商品画像">
+          </a>
         </div>
         <p class="item-title">{{ $item->title }}</p>
         @if($item->order)
@@ -30,8 +32,9 @@
         @endif
       </div>
     @empty
-      <div class="empty-alart"></div>
-        <p>該当する商品が見つかりませんでした</p>
+      <div class="empty-alert-wrapper">
+        <p class="empty-message">該当する商品が見つかりませんでした</p>
+      </div>
     @endforelse
   </div>
 @else
@@ -41,7 +44,9 @@
         @forelse($items as $item)
           <div class="item-card">
             <div class="item-image">
-              <img src="{{ asset('storage/' . $item->image_url) }}" alt="商品画像">
+              <a href="{{ route('items.detail', ['item_id' => $item->id]) }}">
+                <img src="{{ asset('storage/' . $item->image_url) }}" alt="商品画像">
+              </a>
             </div>
             <p class="item-title">{{ $item->title }}</p>
             @if($item->order)
@@ -49,20 +54,22 @@
             @endif
           </div>
         @empty
-          <div class="empty-alart">
-            <p>マイリストに商品はありません</p>
+          <div class="empty-alert-wrapper">
+            <p class="empty-message">マイリストに商品はありません</p>
           </div>
         @endforelse
       @else
-        <div class="empty-alart">
-          <p>ログインが必要です</p>
+        <div class="empty-alert-wrapper">
+          <p class="empty-message">ログインが必要です</p>
         </div>
       @endauth
     @else
       @forelse($items as $item)
         <div class="item-card">
           <div class="item-image">
-            <img src="{{ asset('storage/' . $item->image_url) }}" alt="商品画像">
+            <a href="{{ route('items.detail', ['item_id' => $item->id]) }}">
+              <img src="{{ asset('storage/' . $item->image_url) }}" alt="商品画像">
+            </a>
           </div>
           <p class="item-title">{{ $item->title }}</p>
           @if($item->order)
@@ -70,8 +77,8 @@
           @endif
         </div>
       @empty
-        <div class="empty-alart">
-          <p>おすすめ商品はありません</p>
+        <div class="empty-alert-wrapper">
+          <p class="empty-message">おすすめ商品はありません</p>
         </div>
       @endforelse
     @endif

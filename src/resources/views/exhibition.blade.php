@@ -11,26 +11,29 @@
     <form class="exhibition-form__form" action="/sell" method="post" enctype="multipart/form-data">
       @csrf
       <div class="exhibition-form__group">
-        <div class="exhibition-image-wrapper">
-          <div class="exhibition-image">
-            <label class="exhibition-form__label" for="image">商品画像<span>※</span></label>
+        <label class="exhibition-form__label">商品画像<span>※</span></label>
+          <div class="exhibition-image-wrapper">
             <img id="exhibitionPreview" src="#" alt="">
+            <label class="exhibition-image__label" for="exhibition_image">画像を選択する</label>
+            <input class="exhibition-image__input" type="file" name="image_url" id="exhibition_image" accept="image/*">
           </div>
-        </div>
-        <label class="exhibition-image__label" for="exhibition_image">画像を選択する</label>
-        <input class="exhibition-image__input" type="file" name="image_url" id="exhibition_image" accept="image/*">
+          <p class="exhibition-form__error-message">
+            @error('image_url')
+            {{ $message }}
+            @enderror
+          </p>
       </div>
 
       <div class="exhibition-form__group">
         <h3 class="detail-select">商品の詳細</h3>
-          <label class="exhibition-form__label" for="category_id">カテゴリー<span>※</span></label>
+          <label class="exhibition-form__label">カテゴリー<span>※</span></label>
             <div class="category-button-group">
               @foreach($categories as $category)
-              <div class="category-button">
-              <input type="checkbox" name="category_id[]" value="{{ $category->id }}"
+                <label class="category-button">
+                  <input type="checkbox" name="category_id[]" value="{{ $category->id }}"
                   {{ is_array(old('category_id')) && in_array($category->id, old('category_id')) ? 'checked' : '' }}>
-                  {{ $category->category_name }}
-              </div>
+                  <span>{{ $category->category_name }}</span>
+                </label>
               @endforeach
             </div>
             <p class="exhibition-form__error-message">
@@ -41,15 +44,17 @@
       </div>
 
       <div class="exhibition-form__group">
-        <label class="exhibition-form__label" for="condition">商品の状態<span>※</span></label>
-        <select class="exhibition-form__input" name="condition_id">
-          <option value="">選択してください</option>
-          @foreach($conditions as $condition)
-            <option value="{{ $condition->id }}" {{ old('condition_id') == $condition->id ? 'selected' : '' }}>
-              {{ $condition->condition_kind }}
-            </option>
-          @endforeach
-        </select>
+        <label class="exhibition-form__label" for="condition_id">商品の状態<span>※</span></label>
+        <div class="custom-select-wrapper">
+          <select class="exhibition-form__input" name="condition_id" id="condition_id">
+            <option value="">選択してください</option>
+            @foreach($conditions as $condition)
+              <option value="{{ $condition->id }}" {{ old('condition_id') == $condition->id ? 'selected' : '' }}>
+                {{ $condition->condition_kind }}
+              </option>
+            @endforeach
+          </select>
+        </div>
         <p class="exhibition-form__error-message">
           @error('condition_id')
           {{ $message }}
@@ -60,29 +65,40 @@
     <h3 class="detail-select">商品名と説明</h3>
       <div class="exhibition-form__group">
         <label class="exhibition-form__label" for="title">商品名<span>※</span></label>
-          <input class="exhibition-form__input" type="text" name="title" value="{{ old('title') }}">
-            <p class="exhibition-form__error-message">
-              @error('title')
-              {{ $message }}
-              @enderror
-            </p>
+          <input class="exhibition-form__input" type="text" name="title" id="title" value="{{ old('title') }}">
+          <p class="exhibition-form__error-message">
+            @error('title')
+            {{ $message }}
+            @enderror
+          </p>
       </div>
 
       <div class="exhibition-form__group">
         <label class="exhibition-form__label" for="brand">ブランド名</label>
-        <input class="exhibition-form__input" type="text" name="brand" value="{{ old('brand', $item->brand ?? '') }}">
+        <input class="exhibition-form__input" type="text" name="brand" id="brand" value="{{ old('brand', $item->brand ?? '') }}">
       </div>
 
       <div class="exhibition-form__group">
         <label class="exhibition-form__label" for="content">商品の説明<span>※</span></label>
-        <textarea class="exhibition-form__textarea" name="content" maxlength="255" rows="7">{{ old('content', $item->content ?? '') }}</textarea>
+        <textarea class="exhibition-form__textarea" name="item_explain" maxlength="255" rows="7" id="content">{{ old('item_explain', $item->item_explain ?? '') }}</textarea>
+        <p class="exhibition-form__error-message">
+          @error('item_explain')
+          {{ $message }}
+          @enderror
+        </p>
       </div>
 
       <div class="exhibition-form__group">
         <label class="exhibition-form__label" for="price">販売価格<span>※</span></label>
-        <div class="price-input-wrappar">
-          <input class="exhibition-form__input" type="text" name="price" value="{{ old('price', $item->price ?? '') }}">
+        <div class="price-input-wrapper">
+          <span class="yen-symbol">¥</span>
+          <input class="exhibition-form__input" type="text" name="price" id="price" value="{{ old('price', $item->price ?? '') }}">
         </div>
+        <p class="exhibition-form__error-message">
+          @error('price')
+          {{ $message }}
+          @enderror
+        </p>
       </div>
 
       <input class="exhibition-form__btn btn" type="submit" value="出品する">

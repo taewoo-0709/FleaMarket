@@ -24,7 +24,9 @@
   @forelse($items as $item)
     <div class="item-card">
       <div class="item-image">
-        <img src="{{ asset('storage/' . $item->image_url) }}" alt="商品画像">
+        <a href="{{ route('items.detail', ['item_id' => $item->id]) }}">
+          <img src="{{ asset('storage/' . $item->image_url) }}" alt="商品画像">
+        </a>
       </div>
       <p class="item-title">{{ $item->title }}</p>
       @if($item->order)

@@ -34,7 +34,9 @@ class ProfileRequest extends FormRequest
     public function messages()
     {
         return [
+            'avatar.mimes' => 'ファイルデータは.jpegか.pngを選択してください',
             'name.required' => 'ユーザー名を入力してください',
+            'name.max' => '20字以内で入力してください',
             'postcode.required' => '郵便番号を入力してください',
             'postcode.size' => '郵便番号はハイフンを含む8文字で入力してください',
             'address.required' => '住所を入力してください',

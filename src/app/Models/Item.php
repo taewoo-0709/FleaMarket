@@ -34,6 +34,11 @@ class Item extends Model
         return $this->hasMany(Like::class);
     }
 
+    public function likedUsers()
+    {
+        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'category_item');
@@ -47,10 +52,5 @@ class Item extends Model
     public function order()
     {
         return $this->hasOne(Order::class);
-    }
-
-    public function likedUsers()
-    {
-        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
     }
 }
