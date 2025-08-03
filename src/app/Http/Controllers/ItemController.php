@@ -15,8 +15,6 @@ use App\Models\Like;
 use App\Models\Comment;
 
 use App\Http\Requests\ExhibitionRequest;
-use App\Http\Requests\PurchaseRequests;
-use App\Http\Requests\AddressRequests;
 use App\Http\Requests\CommentRequest;
 
 class ItemController extends Controller
@@ -29,12 +27,14 @@ class ItemController extends Controller
       $items = collect();
 
       if ($tab === 'mylist' && Auth::check()) {
-        $query = Auth::user()->likedItems()->latest();
+          $query = Item::whereHas('likes', function ($q) {
+            $q->where('user_id', Auth::id());
+        });
 
         if (!empty($keyword)) {
           $query->where('title', 'like', '%' . $keyword . '%');
         }
-        $items = $query->get();
+        $items = $query->latest()->get();
 
       } else {
         $items = Item::when(Auth::check(), function ($query) {
@@ -83,9 +83,15 @@ class ItemController extends Controller
 
   public function detailShow($item_id)
   {
-      $item = Item::with('likes', 'likedUsers')->findOrFail($item_id);
-      return view('item', compact('item'));
+    $item = Item::with(['likes', 'likedUsers', 'comments.user', 'categories', 'condition'])->findOrFail($item_id);
+
+    $isSeller = Auth::check() && Auth::id() === $item->user_id;
+
+    $isPurchased = $item->order()->exists(); // 注文がある = 購入された
+
+    return view('item', compact('item', 'isSeller', 'isPurchased'));
   }
+
 
   public function postComment(CommentRequest $request, $item_id)
   {

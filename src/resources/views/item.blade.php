@@ -36,7 +36,17 @@
         <span class="comment-number">{{ $item->comments->count() ?? 0 }}</span>
       </div>
     </div>
-    <input class="detail-form__btn" type="submit" value="購入手続きへ">
+    @if (!$isSeller && !$isPurchased)
+      <a class="detail-form__btn btn-link" href="{{ url('/purchase/' . $item->id) }}">購入手続きへ</a>
+    @else
+      <button class="detail-form__btn btn-disabled" disabled>
+        @if ($isSeller)
+          自分の商品は購入できません
+        @elseif ($isPurchased)
+          この商品はすでに購入されています
+        @endif
+      </button>
+    @endif
 
     <div class="detail-form__group">
       <h3 class="item-explain-detail">商品説明</h3>

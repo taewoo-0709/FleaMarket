@@ -13,8 +13,8 @@
 @endif
 
 <div class="tab-wrapper">
-  <a class="tab {{ ($tab ?? '') === 'recommend' ? 'active' : '' }}" href="{{ url('/') }}?tab=recommend">おすすめ</a>
-  <a class="tab {{ ($tab ?? '') === 'mylist' ? 'active' : '' }}" href="{{ url('/') }}?tab=mylist">マイリスト</a>
+  <a class="tab {{ ($tab ?? '') === 'recommend' ? 'active' : '' }}" href="{{ url('/') }}?tab=recommend&keyword={{ urlencode($keyword ?? '') }}">おすすめ</a>
+  <a class="tab {{ ($tab ?? '') === 'mylist' ? 'active' : '' }}" href="{{ url('/') }}?tab=mylist&keyword={{ urlencode($keyword ?? '') }}">マイリスト</a>
 </div>
 
 @if(!empty($keyword))

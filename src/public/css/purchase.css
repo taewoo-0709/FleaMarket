@@ -1,0 +1,164 @@
+.alert-message {
+    padding: 10px 30px;
+    border-color: #FF9494;
+    background-color: #FF9494;
+    color: #FF5555;
+}
+
+.purchase-layout {
+  display: flex;
+  gap: 5rem;
+  padding: 48px;
+  justify-content: space-between;
+}
+
+.purchase-left {
+  flex: 2;
+}
+
+.purchase-right {
+  flex: 1;
+  padding: 24px;
+  height: fit-content;
+}
+
+.purchase-product {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid gray;
+}
+
+.purchase-image-wrapper img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  background-color: #eee;
+}
+
+.purchase-title-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.purchase-title {
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 0;
+}
+
+.purchase-price {
+  font-size: 22px;
+  margin-top: 0;
+}
+
+.purchase-block {
+  padding-bottom: 50px;
+  border-bottom: 1px solid gray;
+}
+
+.purchase-form__label {
+  display: block;
+  font-weight: bold;
+  margin-left: 20px;
+  margin-top: 30px;
+}
+
+.custom-select-wrapper {
+  position: relative;
+}
+
+.custom-select-wrapper::after {
+  position: absolute;
+  top: 83%;
+  right: 43%;
+  width: 0;
+  height: 0;
+  border-top: 10px solid #7d7b7b;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+  content: "";
+  transform: translateY(-50%);
+}
+
+.purchase-form__input {
+  margin-left: 70px;
+  border-radius: 4px;
+  color: gray;
+  padding: 5px 5px;
+  margin-top: 50px;
+  width: 50%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.address-form-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.change-address {
+  margin-top: 30px;
+  margin-right: 20px;
+  text-decoration: none;
+  color: #0073CC;
+}
+
+.shipping-form {
+  margin-left: 70px;
+  font-weight: bold;
+}
+
+.summary-box {
+  width: 440px;
+  height: 230px;
+  border: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.summary-row__price,
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  padding: 0 20px;
+}
+
+.summary-row__price {
+  border-bottom: 1px solid #000;
+}
+
+.summary-title {
+  margin-left: 50px;
+}
+
+.summary-content {
+  margin-right: 50px;
+  font-size: 22px;
+}
+
+.purchase-form__error-message {
+  color: #FF9494;
+  margin-left: 70px;
+}
+
+.purchase-form__btn {
+  margin: 80px auto 0;
+  display: block;
+  width: 100%;
+  height: 48px;
+  background-color: #FF5555;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.purchase-submit {
+  text-align: center;
+}
