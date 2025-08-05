@@ -10,8 +10,9 @@
 }
 
 .exhibition-form__form {
-  padding: 64px 96px;
-  width: 50vw;
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .detail-select {
@@ -19,13 +20,6 @@
   font-size: 20px;
   color: gray;
   border-bottom: 1px solid gray;
-}
-
-@media screen and (min-width: 1400px) {
-  .exhibition-form__form {
-    max-width: 1540px;
-    width: 50vw;
-  }
 }
 
 .exhibition-image-wrapper {
@@ -170,12 +164,38 @@
   border-radius: 3px;
 }
 
-@media (min-width: 768px) and (max-width: 850px) {
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+  .exhibition-form__form {
+    width: 50vw;
+    max-width: 800px;
+    padding: 64px 96px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 850px) {
+  .exhibition-form__form {
+    width: 75vw;
+    padding: 48px 64px;
+  }
+}
+
+@media screen and (min-width: 851px) and (max-width: 1399px) {
+  .exhibition-form__form {
+    width: 60vw;
+    padding: 48px 72px;
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 767px) {
+  .exhibition-form__form {
+    width: 68vw;
+    padding: 40px 32px;
+  }
+}
+
+@media screen and (max-width: 599px) {
   .exhibition-form__form {
     width: 90vw;
-  }
-
-  .exhibition-form__input {
-    max-width: 100%;
+    padding: 32px 16px;
   }
 }

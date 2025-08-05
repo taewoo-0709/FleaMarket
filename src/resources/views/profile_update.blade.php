@@ -22,7 +22,7 @@
       </div>
       <div class="profile-update-form__group">
         <label class="profile-update-form__label" for="name">ユーザー名<span>※</span></label>
-        <input class="profile-update-form__input" type="name" name="name" value="{{ old('name', $user->name) }}">
+        <input class="profile-update-form__input" type="name" name="name" id="name" value="{{ old('name', $user->name) }}">
         <p class="profile-update-form__error-message">
           @error('name')
           {{ $message }}
@@ -31,7 +31,7 @@
       </div>
       <div class="profile-update-form__group">
         <label class="profile-update-form__label" for="postal_code">郵便番号<span>※</span></label>
-        <input class="profile-update-form__input" type="text" name="postcode" value="{{ old('postcode', $user->postcode) }}">
+        <input class="profile-update-form__input" type="text" name="postcode" id="postal_code" value="{{ old('postcode', $user->postcode) }}">
         <p class="profile-update-form__error-message">
           @error('postcode')
           {{ $message }}
@@ -40,7 +40,7 @@
       </div>
       <div class="profile-update-form__group">
         <label class="profile-update-form__label" for="address">住所<span>※</span></label>
-        <input class="profile-update-form__input" type="text" name="address" value="{{ old('address', $user->address) }}">
+        <input class="profile-update-form__input" type="text" name="address" id="address" value="{{ old('address', $user->address) }}">
         <p class="profile-update-form__error-message">
           @error('address')
           {{ $message }}
@@ -49,7 +49,7 @@
       </div>
       <div class="profile-update-form__group">
         <label class="profile-update-form__label" for="building">建物名</label>
-        <input class="profile-update-form__input" type="text" name="building" value="{{ old('building', $user->building) }}">
+        <input class="profile-update-form__input" type="text" name="building" id="building" value="{{ old('building', $user->building) }}">
       </div>
       <input class="profile-update-form__btn btn" type="submit" value="更新する">
     </form>

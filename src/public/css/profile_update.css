@@ -1,41 +1,40 @@
 .profile-update-form__inner {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .profile-update-form__heading {
   text-align: center;
-  margin: auto;
-  margin-top: 85px;
+  margin: 85px auto 0;
+  width: 100%;
+  max-width: 700px;
 }
 
 .profile-update-form__form {
-  padding: 64px 96px;
-  width: 50vw;
-}
-
-@media screen and (min-width: 1400px) {
-  .profile-update-form__heading {
-    max-width: 1540px;
-    width: 60vw;
-  }
+  padding: 64px 5vw;
+  width: 100%;
+  max-width: 700px;
+  box-sizing: border-box;
 }
 
 .profile-image-wrapper {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .profile-image-circle {
-  width: 120px;
-  height: 120px;
+  width: clamp(90px, 10vw, 120px);
+  height: clamp(90px, 10vw, 120px);
   border-radius: 50%;
   background-color: #ddd;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .profile-image-circle img {
@@ -48,13 +47,14 @@
 .profile-image__label {
   display: inline-block;
   padding: 6px 12px;
-  margin-left: 30px;
   border: 1px solid #FF5555;
   color: #FF5555;
   font-size: 0.85rem;
   border-radius: 4px;
   cursor: pointer;
+  white-space: nowrap;
   transition: background-color 0.2s;
+  flex-shrink: 0;
 }
 
 .profile-image__input {
@@ -63,10 +63,7 @@
 
 .profile-update-form__group {
   margin-top: 30px;
-}
-
-.profile-update-form__group:first-of-type {
-  margin-top: 0;
+  width: 100%;
 }
 
 .profile-update-form__label {
@@ -90,39 +87,29 @@
   border-radius: 3px;
 }
 
-.profile-update-form__error-message {
-  color: #FF9494;
-}
-
 .profile-update-form__btn {
   margin-top: 50px;
   width: 100%;
   height: 48px;
-  text-align: center;
-  color: #fff;
+  color: white;
   background-color: #FF5555;
   border: none;
   border-radius: 3px;
 }
 
-@media (min-width: 768px) and (max-width: 850px) {
-  .profile-update-form__group {
-    max-width: 100%;
+.profile-update-form__error-message {
+  color: #FF9494;
+}
+
+@media screen and (min-width: 768px) and (max-width: 850px) {
+  .profile-update-form__form {
+    width: 70%;
+    padding: 48px 4vw;
   }
 
-  .profile-update-form__input {
-    width: 100%;
-    max-width: 350px;
-  }
-
-  .profile-update-form__btn {
-    max-width: 200px;
-  }
-
-  .profile-update-form__link {
-    white-space: nowrap;
-    display: inline-block;
-    margin-left: 2rem;
+  .profile-image-wrapper {
+    gap: 1rem;
+    flex-wrap: nowrap;
   }
 
   .profile-image-circle {
@@ -133,5 +120,20 @@
   .profile-image__label {
     font-size: 0.8rem;
     padding: 5px 10px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .profile-image-wrapper {
+    flex-wrap: nowrap;
+    gap: 1rem;
+  }
+
+  .profile-image__label {
+    margin-left: 0;
+  }
+
+  .profile-update-form__form {
+    padding: 32px 5vw;
   }
 }

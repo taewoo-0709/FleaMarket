@@ -14,13 +14,6 @@
   width: 50vw;
 }
 
-@media screen and (min-width: 1400px) {
-  .login-form__heading {
-    max-width: 1540px;
-    width: 60vw;
-  }
-}
-
 .login-form__group {
   margin-top: 30px;
 }
@@ -73,23 +66,38 @@
   color: #0073CC;
 }
 
-@media (min-width: 768px) and (max-width: 850px) {
-  .login-form__group {
-    max-width: 100%;
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+  .login-form__form {
+    width: 50vw;
+    max-width: 600px;
+    padding: 64px 96px;
   }
+}
 
-  .login-form__input {
-    width: 100%;
-    max-width: 350px;
+@media screen and (min-width: 851px) and (max-width: 1399px) {
+  .login-form__form {
+    width: 60vw;
+    padding: 56px 72px;
   }
+}
 
-  .login-form__btn {
-    max-width: 200px;
+@media screen and (min-width: 768px) and (max-width: 850px) {
+  .login-form__form {
+    width: 60vw;
+    padding: 48px 64px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .login-form__form {
+    width: 55vw;
+    padding: 32px 16px;
   }
 
   .login-form__link {
+    margin-left: 0;
+    text-align: center;
+    display: block;
     white-space: nowrap;
-    display: inline-block;
-    margin-left: 2rem;
   }
 }

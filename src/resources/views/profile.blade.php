@@ -34,8 +34,8 @@
       @endif
     </div>
   @empty
-    <div class="empty-alart">
-      <p>{{ ($page ?? '') === 'buy' ? '購入した商品はありません' : '出品した商品はありません' }}</p>
+    <div class="empty-alert-wrapper">
+      <p class="empty-message">{{ ($page ?? '') === 'buy' ? '購入した商品はありません' : '出品した商品はありません' }}</p>
     </div>
   @endforelse
 </div>

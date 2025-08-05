@@ -87,8 +87,7 @@ class ItemController extends Controller
 
     $isSeller = Auth::check() && Auth::id() === $item->user_id;
 
-    $isPurchased = $item->order()->exists(); // 注文がある = 購入された
-
+    $isPurchased = $item->order()->exists();
     return view('item', compact('item', 'isSeller', 'isPurchased'));
   }
 

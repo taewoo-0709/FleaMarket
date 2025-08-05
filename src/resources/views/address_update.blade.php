@@ -13,7 +13,7 @@
       @method('PATCH')
       <div class="address-update-form__group">
         <label class="address-update-form__label" for="postal_code">郵便番号<span>※</span></label>
-        <input class="address-update-form__input" type="text" name="shipping_postcode">
+        <input class="address-update-form__input" type="text" name="shipping_postcode" id="postal_code">
         <p class="address-update-form__error-message">
           @error('shipping_postcode')
           {{ $message }}
@@ -22,7 +22,7 @@
       </div>
       <div class="address-update-form__group">
         <label class="address-update-form__label" for="address">住所<span>※</span></label>
-        <input class="address-update-form__input" type="text" name="shipping_address">
+        <input class="address-update-form__input" type="text" name="shipping_address" id="address">
         <p class="address-update-form__error-message">
           @error('shipping_address')
           {{ $message }}
@@ -31,7 +31,7 @@
       </div>
       <div class="address-update-form__group">
         <label class="address-update-form__label" for="building">建物名</label>
-        <input class="address-update-form__input" type="text" name="shipping_building">
+        <input class="address-update-form__input" type="text" name="shipping_building" id="building">
       </div>
       <input class="address-update-form__btn btn" type="submit" value="更新する">
     </form>

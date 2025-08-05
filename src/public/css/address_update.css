@@ -14,13 +14,6 @@
   width: 50vw;
 }
 
-@media screen and (min-width: 1400px) {
-  .address-update-form__heading {
-    max-width: 1540px;
-    width: 60vw;
-  }
-}
-
 .address-update-form__group {
   margin-top: 30px;
 }
@@ -65,17 +58,44 @@
   border-radius: 3px;
 }
 
-@media (min-width: 768px) and (max-width: 850px) {
-  .address-update-form__group {
-    max-width: 100%;
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+  .address-update-form__form {
+    width: 50vw;
+    max-width: 600px;
+    padding: 64px 96px;
+  }
+}
+
+@media screen and (min-width: 851px) and (max-width: 1399px) {
+  .address-update-form__form {
+    width: 47vw;
+    padding: 56px 72px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 850px) {
+  .address-update-form__form {
+    width: 55vw;
+    padding: 48px 48px;
   }
 
   .address-update-form__input {
     width: 100%;
-    max-width: 350px;
   }
 
   .address-update-form__btn {
-    max-width: 200px;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .address-update-form__form {
+    width: 55vw;
+    padding: 32px 16px;
+  }
+
+  .address-update-form__input,
+  .address-update-form__btn {
+    width: 100%;
   }
 }
