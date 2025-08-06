@@ -10,7 +10,6 @@ use App\Models\Order;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\PurchaseRequest;
 use Stripe\Stripe;
-use Stripe\Webhook;
 use Stripe\Checkout\Session as StripeSession;
 
 class OrderController extends Controller
@@ -69,7 +68,7 @@ class OrderController extends Controller
         $payment_id = $request->input('payment_id');
         session(['payment_id' => $payment_id]);
 
-        Stripe::setApiKey(config('stripe.stripe_secret_key'));
+        Stripe::setApiKey(config('services.stripe.secret'));
 
         $methodType = $payment_id == 1 ? 'konbini' : 'card';
 
@@ -93,9 +92,9 @@ class OrderController extends Controller
                 'item_id' => $item->id,
                 'user_id' => $user->id,
                 'payment_id' => $payment_id,
-                'postcode' => $shipping['shipping_postcode'],
-                'address' => $shipping['shipping_address'],
-                'building' => $shipping['shipping_building'] ?? '',
+                'shipping_postcode' => $shipping['shipping_postcode'],
+                'shipping_address' => $shipping['shipping_address'],
+                'shipping_building' => $shipping['shipping_building'] ?? '',
             ],
         ]);
 
@@ -106,6 +105,7 @@ class OrderController extends Controller
     {
         $item = Item::findOrFail($item_id);
         $user = Auth::user();
+        $payment_id = session('payment_id');
 
         $shipping = session('temp_shipping_address') ?? [
             'shipping_postcode' => $user->postcode,
@@ -113,18 +113,7 @@ class OrderController extends Controller
             'shipping_building' => $user->building,
         ];
 
-        $payment_id = session('payment_id');
-
-        Order::create([
-            'user_id' => $user->id,
-            'item_id' => $item->id,
-            'payment_id' => $payment_id,
-            'shipping_postcode' => $shipping['shipping_postcode'],
-            'shipping_address' => $shipping['shipping_address'],
-            'shipping_building' => $shipping['shipping_building'],
-        ]);
-
-        session()->forget(['shipping', 'payment_id']);
+        session()->forget(['temp_shipping_address', 'payment_id']);
 
         return redirect('/')->with('message', '購入が完了しました。');
     }
@@ -132,48 +121,5 @@ class OrderController extends Controller
     public function cancel($item_id)
     {
         return redirect("/purchase/{$item_id}")->with('error', '決済がキャンセルされました。');
-    }
-
-    public function webhook(Request $request)
-    {
-        Stripe::setApiKey(config('stripe.stripe_secret_key'));
-
-        $payload = $request->getContent();
-        $sig_header = $request->header('Stripe-Signature');
-        $endpoint_secret = config('stripe.webhook_secret');
-
-        try {
-            $event = Webhook::constructEvent($payload, $sig_header, $endpoint_secret);
-        } catch (\Exception $e) {
-            return response('Webhook Error: ' . $e->getMessage(), 400);
-    }
-
-        if ($event->type === 'checkout.session.completed') {
-            $session = $event->data->object;
-
-            $user_id = $session->metadata->user_id ?? null;
-            $item_id = $session->metadata->item_id ?? null;
-            $payment_id = $session->metadata->payment_id ?? null;
-            $postcode = $session->metadata->postcode ?? '';
-            $address = $session->metadata->address ?? '';
-            $building = $session->metadata->building ?? '';
-
-            $exists = Order::where('user_id', $user_id)
-                    ->where('item_id', $item_id)
-                    ->exists();
-
-        if (!$exists) {
-            Order::create([
-                'user_id' => $user_id,
-                'item_id' => $item_id,
-                'payment_id' => $payment_id,
-                'shipping_postcode' => $postcode,
-                'shipping_address' => $address,
-                'shipping_building' => $building,
-            ]);
-        }
-    }
-
-    return response('Webhook received', 200);
     }
 }

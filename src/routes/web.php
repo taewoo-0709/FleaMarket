@@ -27,6 +27,4 @@ Route::middleware('auth')->group(function () {
     Route::post('/purchase/confirm/{item_id}', [OrderController::class, 'confirm']);
     Route::get('/purchase/success/{item_id}', [OrderController::class, 'success']);
     Route::get('/purchase/cancel/{item_id}', [OrderController::class, 'cancel']);
-    Route::post('/stripe/webhook', [OrderController::class, 'webhook']);
 });
-

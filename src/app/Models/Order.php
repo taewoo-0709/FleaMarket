@@ -13,6 +13,7 @@ class Order extends Model
         'user_id',
         'item_id',
         'payment_id',
+        'stripe_payment_id',
         'shipping_postcode',
         'shipping_address',
         'shipping_building',

@@ -6,18 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateOrdersTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('item_id')->constrained()->onDelete('cascade');
-            $table->foreignId('payment_id')->constrained()->onDelete('cascade');
+            $table->foreignId('payment_id')->nullable()->constrained()->onDelete('cascade');
+            $table->string('stripe_payment_id')->nullable();
             $table->string('shipping_postcode', 8);
             $table->string('shipping_address');
             $table->string('shipping_building')->nullable();
@@ -25,11 +21,6 @@ class CreateOrdersTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('orders');
