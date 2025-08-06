@@ -31,7 +31,6 @@ Laravel 環境構築
 https://stripe.com/docs/stripe-cli
 
 2. Stripe CLIにログイン(初回のみ)
-```bash
 stripe login
 
 3. 送信先にイベントを転送する
@@ -47,14 +46,14 @@ stripe trigger payment_intent.succeeded
 ### コンビニ決済時の処理概要
 ・Webhookの処理はすべてWebhookControlerにて統一しています。
 
-・決済時にユーザーはコンビニ支払い用のバーコード画面が表示されます。（Stripeの画面）
+・決済時にユーザーはコンビニ支払い用の番号が書かれた案内画面が表示されます。（Stripeの画面）
 
 ・支払い完了後、Stripe Webhookによってサーバー側が処理され、ordersテーブルに注文が保存されます。
 
 ・ページ遷移はありませんが、購入処理は完了しているため、商品は「Sold」状態になります。
 
 ## ER図
-<img width="471" height="646" alt="スクリーンショット 2025-07-30 16 14 40" src="https://github.com/user-attachments/assets/133eeaba-5383-465a-a9ba-1ef5f6c00db9" />
+<img width="425" height="600" alt="スクリーンショット 2025-08-06 21 35 51" src="https://github.com/user-attachments/assets/ac90230f-e975-4237-b6b5-2774eeec8c15" />
 
 ## 使用技術 🔗
 
