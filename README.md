@@ -33,24 +33,48 @@ https://stripe.com/docs/stripe-cli
 2. Stripe CLIにログイン(初回のみ)
 stripe login
 
-3. 送信先にイベントを転送する
-例：stripe listen --forward-to localhost:8000/api/webhook/stripe
+3. ターミナル①でdockerを起動させる
+docker-compose up -d --build
+
+4. ターミナル②で送信先にイベントを転送する
+例：stripe listen --forward-to api/webhook/stripe
 
 成功すると、Webhook signing secret が表示されます。これを .env に設定してください：STRIPE_WEBHOOK_SECRET=whsec_XXXXXXXXXXXXXXXXXX
 
-4. CLIを使用してイベントをテスト送信する
-stripe trigger payment_intent.succeeded
+ ※.envファイルにSTRIPE_SECRET=sk_test_...をStripeのAPIキーからコピー&ペーストしてください。
 
-または、実際にCheckoutを動かして実際の支払いフローから操作確認してください。
+ ※.envファイルを操作したらキャッシュクリアをするか、dockerの再ビルドをしてください。
 
-### コンビニ決済時の処理概要
+5. ターミナル③でstripe trigger payment_intent.succeededを実行してください。
+
+6. laravel.logなどでwebhook呼び出し記録を確認し、[200]が返っているか確認してください。
+※laravel.logなどログを使用する場合は、WebhookController.phpでコメントアウトになっている「Log::~」を使用できるようにしてからログ確認をしてください。8箇所あります。
+
+※ログを使用せず、ターミナル②で確認する場合は、コメントアウトのままでも確認ができます。[200]が返っていたら成功です。
+
+7. 開発サイトからコンビニ支払いを実行してください。
+
+※4~5分ほど時間を置いて決済完了させるか、実際にCheckoutを動かして実際の支払いフローから操作確認してください。
+
+8. DBのordersテーブルに保存されているか確認してください。
+
+## カード支払い
+コンビニ支払い手順の1~3までが済んでいれば、購入画面から進めるかと思います。
+
+
+### カード・コンビニ決済時の処理概要
 ・Webhookの処理はすべてWebhookControlerにて統一しています。
 
-・決済時にユーザーはコンビニ支払い用の番号が書かれた案内画面が表示されます。（Stripeの画面）
+・決済時にユーザーは
+①コンビニ支払いの場合、コンビニ決済用の番号が書かれた案内画面が表示されます。（Stripeの画面）
+
+②カード支払いの場合は、カード番号の入力画面が表示されます。（Stripeの画面）
+カード番号は、https://docs.stripe.com/testing?locale=ja-JP を参考にしてください。
 
 ・支払い完了後、Stripe Webhookによってサーバー側が処理され、ordersテーブルに注文が保存されます。
 
-・ページ遷移はありませんが、購入処理は完了しているため、商品は「Sold」状態になります。
+・コンビニ決済完了後のページ遷移はありませんが、購入処理は完了しているため、商品は「Sold」状態になります。
+
 
 ## ER図
 <img width="425" height="600" alt="スクリーンショット 2025-08-06 21 35 51" src="https://github.com/user-attachments/assets/ac90230f-e975-4237-b6b5-2774eeec8c15" />

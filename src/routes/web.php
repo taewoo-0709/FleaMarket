@@ -1,14 +1,26 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\LikeController;
-use App\Http\Controllers\MailSendController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\EmailVerificationController;
 
-Route::get('/mail', [MailSendController::class, 'index']);
-Route::get('/', [ItemController::class, 'index']);
+Route::get('/email/verify', [EmailVerificationController::class, 'showEmailVerificationNotice'])
+    ->middleware(['auth'])
+    ->name('verification.notice');
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back();
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/mypage/profile');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::get('/', [ItemController::class, 'index'])->middleware('ensure.email.verified.homepage');
 Route::get('/item/{item_id}', [ItemController::class, 'detailShow'])->name('items.detail');
 
 Route::middleware('auth')->group(function () {

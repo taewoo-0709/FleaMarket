@@ -143,6 +143,10 @@
     margin: 0 auto;
     padding: 2rem 6rem;
   }
+
+.item-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media screen and (min-width: 768px) and (max-width: 850px) {
@@ -167,6 +171,6 @@
   }
 
   .item-list {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
