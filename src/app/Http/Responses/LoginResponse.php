@@ -11,10 +11,13 @@ class LoginResponse implements LoginResponseContract
     {
         $user = $request->user();
 
-        if ($user && !$user->hasVerifiedEmail()) {
+        if ($user && is_null($user->email_verified_at)) {
+
+            $user->sendEmailVerificationNotification();
+
             return redirect()->route('verification.notice');
         }
 
-        return redirect()->intended('/');
+        return redirect()->intended(config('fortify.home', '/'));
     }
 }

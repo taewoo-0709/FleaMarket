@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Payment;
 use App\Models\Order;
+use App\Models\User;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\PurchaseRequest;
 use Stripe\Stripe;
@@ -16,11 +17,23 @@ class OrderController extends Controller
 {
     public function index($item_id)
     {
-        $fromAddressChange = url()->previous() === url("/purchase/address/{$item_id}");
+        $user = Auth::user();
 
-    if (!$fromAddressChange) {
+        if (empty($user->postcode) || empty($user->address)) {
+            return redirect()
+            ->route('profile.edit', ['item_id' => $item_id])
+            ->with([
+                'address_required' => true,
+                'redirect_after_profile_update' => route('purchase.show', ['item_id' => $item_id]),
+                'message' => '住所の登録が必要です'
+            ]);
+        }
+
+        if (!session('from_address_change')) {
         session()->forget('temp_shipping_address');
-    }
+        }
+
+        session()->forget('from_address_change');
 
         $item = Item::findOrFail($item_id);
         $user = Auth::user();
@@ -48,7 +61,8 @@ class OrderController extends Controller
             'shipping_postcode' => $request->shipping_postcode,
             'shipping_address' => $request->shipping_address,
             'shipping_building' => $request->shipping_building,
-        ]
+        ],
+        'from_address_change' => true,
     ]);
 
         return redirect("/purchase/{$item_id}");

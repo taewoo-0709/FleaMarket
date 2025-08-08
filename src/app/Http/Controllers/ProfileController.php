@@ -14,7 +14,11 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        return view('profile_update', compact('user'));
+        return view('profile_update', [
+            'user' => $user,
+            'redirect_after_profile_update' => session('redirect_after_profile_update'),
+            'message' => session('message'),
+        ]);
     }
 
     public function update(ProfileRequest $request)
@@ -37,6 +41,11 @@ class ProfileController extends Controller
         }
 
         $user->update($profile);
+
+        if ($request->filled('redirect_after_profile_update')) {
+        return redirect($request->input('redirect_after_profile_update'))
+            ->with('message', 'プロフィールを更新しました');
+    }
 
         return redirect('/')->with('message', 'プロフィールを更新しました');
     }

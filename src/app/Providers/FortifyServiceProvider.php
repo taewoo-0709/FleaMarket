@@ -13,7 +13,6 @@ use Laravel\Fortify\Contracts\RegisterResponse;
 use App\Http\Requests\LoginRequest;
 use App\Http\Responses\CustomRegisterResponse;
 use Laravel\Fortify\Contracts\VerifyEmailViewResponse;
-use App\Http\Responses\CustomVerifyEmailViewResponse;
 
 
 class FortifyServiceProvider extends ServiceProvider
@@ -32,10 +31,6 @@ class FortifyServiceProvider extends ServiceProvider
             return view('auth.register');
         });
 
-        Fortify::loginView(function () {
-            return view('auth.login');
-        });
-
         RateLimiter::for('login', function (Request $request) {
             $email = (string) $request->email;
 
@@ -44,7 +39,8 @@ class FortifyServiceProvider extends ServiceProvider
 
         $this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
 
-        $this->app->singleton(LoginResponse::class, CustomLoginResponse::class);
+        $this->app->singleton(LoginResponse::class,
+        LoginResponse::class);
 
         $this->app->singleton(RegisterResponse::class, CustomRegisterResponse::class);
 

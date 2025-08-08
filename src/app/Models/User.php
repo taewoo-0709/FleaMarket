@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Notifications\CustomVerifyEmail;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -80,5 +81,10 @@ class User extends Authenticatable implements MustVerifyEmail
             'id',
             'item_id'
         );
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new CustomVerifyEmail);
     }
 }

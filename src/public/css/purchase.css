@@ -1,8 +1,15 @@
-.alert-message {
+.alert-message__error {
     padding: 10px 30px;
     border-color: #ff949482;
     background-color: #ff949482;
     color: #FF5555;
+}
+
+.alert-message {
+    padding: 10px 30px;
+    border-color: #badbcc;
+    background-color: #d1e7dd;
+    color: #0f5132;
 }
 
 .purchase-layout {

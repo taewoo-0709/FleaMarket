@@ -5,12 +5,20 @@
 @endsection
 
 @section('content')
+@if (session('message'))
+  <div class="alert-message">
+    {{ session('message') }}
+  </div>
+@endif
 <div class="profile-update-form">
   <h2 class="profile-update-form__heading">プロフィール設定</h2>
   <div class="profile-update-form__inner">
     <form class="profile-update-form__form" action="/mypage/profile" method="post" enctype="multipart/form-data">
       @csrf
       @method('PATCH')
+      @if (session('redirect_after_profile_update'))
+        <input type="hidden" name="redirect_after_profile_update" value="{{ session('redirect_after_profile_update') }}">
+      @endif
       <div class="profile-update-form__group">
         <div class="profile-image-wrapper">
           <div class="profile-image-circle">
