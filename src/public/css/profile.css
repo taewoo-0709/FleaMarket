@@ -61,11 +61,13 @@
     padding-left: 100px;
     margin-top: 50px;
 }
+
 .tab {
     font-weight: bold;
     color: #555;
     text-decoration: none;
 }
+
 .tab.active {
     color: red;
 }
@@ -73,12 +75,14 @@
 .item-card {
     position: relative;
 }
+
 .item-image {
     background-color: #ddd;
     width: 100%;
     padding-top: 100%;
     position: relative;
 }
+
 .item-image img {
     position: absolute;
     top: 0;
@@ -87,6 +91,7 @@
     height: 100%;
     object-fit: cover;
 }
+
 .item-title {
     margin-top: 0.5rem;
     font-size: 0.95rem;
@@ -144,7 +149,7 @@
     padding: 2rem 6rem;
   }
 
-.item-list {
+  .item-list {
     grid-template-columns: repeat(3, 1fr);
   }
 }

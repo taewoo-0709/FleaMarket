@@ -23,7 +23,6 @@
             @enderror
           </p>
       </div>
-
       <div class="exhibition-form__group">
         <h3 class="detail-select">商品の詳細</h3>
           <label class="exhibition-form__label">カテゴリー<span>※</span></label>
@@ -42,7 +41,6 @@
               @enderror
             </p>
       </div>
-
       <div class="exhibition-form__group">
         <label class="exhibition-form__label" for="condition_id">商品の状態<span>※</span></label>
         <div class="custom-select-wrapper">
@@ -61,8 +59,7 @@
           @enderror
         </p>
       </div>
-
-    <h3 class="detail-select">商品名と説明</h3>
+      <h3 class="detail-select">商品名と説明</h3>
       <div class="exhibition-form__group">
         <label class="exhibition-form__label" for="title">商品名<span>※</span></label>
           <input class="exhibition-form__input" type="text" name="title" id="title" value="{{ old('title') }}">
@@ -72,12 +69,10 @@
             @enderror
           </p>
       </div>
-
       <div class="exhibition-form__group">
         <label class="exhibition-form__label" for="brand">ブランド名</label>
         <input class="exhibition-form__input" type="text" name="brand" id="brand" value="{{ old('brand', $item->brand ?? '') }}">
       </div>
-
       <div class="exhibition-form__group">
         <label class="exhibition-form__label" for="content">商品の説明<span>※</span></label>
         <textarea class="exhibition-form__textarea" name="item_explain" maxlength="255" rows="7" id="content">{{ old('item_explain', $item->item_explain ?? '') }}</textarea>
@@ -87,7 +82,6 @@
           @enderror
         </p>
       </div>
-
       <div class="exhibition-form__group">
         <label class="exhibition-form__label" for="price">販売価格<span>※</span></label>
         <div class="price-input-wrapper">
@@ -100,7 +94,6 @@
           @enderror
         </p>
       </div>
-
       <input class="exhibition-form__btn btn" type="submit" value="出品する">
     </form>
   </div>

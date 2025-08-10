@@ -128,8 +128,7 @@
   box-sizing: border-box;
 }
 
-.summary-row__price,
-.summary-row {
+.summary-row__price,.summary-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -176,9 +175,11 @@
     padding: 40px 32px;
     gap: 3rem;
   }
+
   .purchase-right {
     width: 100%;
   }
+
   .summary-box {
     max-width: 400px;
   }
@@ -189,9 +190,11 @@
     padding: 40px 32px;
     gap: 2rem;
   }
+
   .purchase-right {
     width: 100%;
   }
+
   .summary-box {
     max-width: 100%;
   }
@@ -202,33 +205,39 @@
     padding: 24px 12px;
     gap: 1rem;
   }
+
   .purchase-left,
   .purchase-right {
     width: 50%;
     max-width: 50%;
   }
+
   .summary-box {
     width: 100%;
     height: 100%;
     padding: 10px;
   }
-  .summary-row__price,
-  .summary-row {
+
+  .summary-row__price,.summary-row {
     flex-wrap: nowrap;
     gap: 8px;
     margin: 5px 15px 5px 0;
   }
+
   .summary-content {
     font-size: 18px;
     margin: 20px 5px 20px 0;
   }
+
   .summary-title {
     margin-left: 20px;
   }
+
   .custom-select-wrapper::after {
     right: 9rem;
     top: 70%;
   }
+
   .purchase-form__input {
     width: 60%;
     margin-top: 20px;
@@ -240,34 +249,38 @@
     padding: 24px 12px;
     gap: 1rem;
   }
-  .purchase-left,
-  .purchase-right {
+
+  .purchase-left,.purchase-right {
     width: 50%;
     max-width: 50%;
   }
+
   .summary-box {
     width: 100%;
     height: 100%;
     padding: 10px;
   }
-  .summary-row__price,
-  .summary-row {
+
+  .summary-row__price,.summary-row {
     flex-wrap: nowrap;
     gap: 8px;
     margin: 5px 15px 5px 0;
-
   }
+
   .summary-content {
     font-size: 18px;
     margin: 20px 5px 20px 0;
   }
+
   .summary-title {
     margin-left: 20px;
   }
+
   .custom-select-wrapper::after {
     right: 7rem;
     top: 70%;
   }
+
   .purchase-form__input {
     width: 60%;
     margin-top: 20px;
@@ -279,34 +292,38 @@
     padding: 24px 12px;
     gap: 1rem;
   }
-  .purchase-left,
-  .purchase-right {
+
+  .purchase-left,.purchase-right {
     width: 50%;
     max-width: 50%;
   }
+
   .summary-box {
     width: 100%;
     height: 100%;
     padding: 10px;
   }
-  .summary-row__price,
-  .summary-row {
+
+  .summary-row__price,.summary-row {
     flex-wrap: nowrap;
     gap: 8px;
     margin: 5px 15px 5px 0;
-
   }
+
   .summary-content {
     font-size: 18px;
     margin: 20px 5px 20px 0;
   }
+
   .summary-title {
     margin-left: 20px;
   }
+
   .custom-select-wrapper::after {
     right: 6rem;
     top: 70%;
   }
+
   .purchase-form__input {
     width: 60%;
     margin-top: 20px;

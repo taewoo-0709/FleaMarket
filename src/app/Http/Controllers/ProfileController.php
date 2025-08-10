@@ -45,7 +45,7 @@ class ProfileController extends Controller
         if ($request->filled('redirect_after_profile_update')) {
         return redirect($request->input('redirect_after_profile_update'))
             ->with('message', 'プロフィールを更新しました');
-    }
+        }
 
         return redirect('/')->with('message', 'プロフィールを更新しました');
     }

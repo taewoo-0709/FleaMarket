@@ -213,8 +213,7 @@
     max-width: 95%;
   }
 
-  .detail-form,
-  .detail-info {
+  .detail-form,.detail-info {
     flex: 1;
     min-width: 300px;
   }
@@ -229,8 +228,7 @@
     padding: 32px 16px;
   }
 
-  .detail-form,
-  .detail-info {
+  .detail-form,.detail-info {
     min-width: 40%;
     flex: 1;
   }
@@ -242,8 +240,7 @@
     padding: 24px 16px;
   }
 
-  .detail-form,
-  .detail-info {
+  .detail-form,.detail-info {
     width: 100%;
     min-width: unset;
     margin: 0 auto;

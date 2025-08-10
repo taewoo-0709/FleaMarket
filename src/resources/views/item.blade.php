@@ -11,12 +11,10 @@
       <img src="{{ asset('storage/' . $item->image_url) }}" alt="商品画像">
     </div>
   </div>
-
   <div class="detail-info">
     <h2 class="detail-title">{{ $item->title }}</h2>
     <p class="detail-brand">{{ $item->brand }}</p>
     <p class="detail-price">¥{{ number_format($item->price) }} (税込)</p>
-
     <div class="icon-group">
       <form action="{{ route('like.toggle', $item->id) }}" method="post">
       @csrf
@@ -47,12 +45,10 @@
         @endif
       </button>
     @endif
-
     <div class="detail-form__group">
       <h3 class="item-explain-detail">商品説明</h3>
       <p class="detail-explain">{{ $item->item_explain }}</p>
     </div>
-
     <div class="detail-form__group">
     <h3 class="item-explain-detail">商品の情報</h3>
       <div class="item-infomation-group">
@@ -68,7 +64,6 @@
         <span class="detail-condition">{{ $item->condition->condition_kind }}</span>
       </div>
     </div>
-
     <h3 class="comment-detail">コメント（{{ $item->comments->count() }}件）</h3>
     @foreach($item->comments as $comment)
       <div class="comment-container">
@@ -79,7 +74,6 @@
         <p class="comment-data">{{ $comment->comment }}</p>
       </div>
     @endforeach
-
     <form class="comment-form" action="/item/{{ $item->id }}/comment" method="post">
       @csrf
       <label class="comment__label" for="content">商品へのコメント</label>

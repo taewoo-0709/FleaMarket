@@ -14,12 +14,10 @@
       <a class="edit-button" href="/mypage/profile">プロフィールを編集</a>
   </div>
 </div>
-
 <div class="tab-wrapper">
   <a class="tab {{ ($page ?? '') === 'sell' ? 'active' : '' }}" href="{{ url('/mypage?page=sell') }}">出品した商品</a>
   <a class="tab {{ ($page ?? '') === 'buy' ? 'active' : '' }}" href="{{ url('/mypage?page=buy') }}">購入した商品</a>
 </div>
-
 <div class="item-list">
   @forelse($items as $item)
     <div class="item-card">
@@ -33,10 +31,10 @@
         <span class="sold-label">Sold</span>
       @endif
     </div>
-  @empty
-    <div class="empty-alert-wrapper">
-      <p class="empty-message">{{ ($page ?? '') === 'buy' ? '購入した商品はありません' : '出品した商品はありません' }}</p>
-    </div>
+    @empty
+      <div class="empty-alert-wrapper">
+        <p class="empty-message">{{ ($page ?? '') === 'buy' ? '購入した商品はありません' : '出品した商品はありません' }}</p>
+      </div>
   @endforelse
 </div>
 @endsection

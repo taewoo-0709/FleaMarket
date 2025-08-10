@@ -30,7 +30,7 @@ class OrderController extends Controller
         }
 
         if (!session('from_address_change')) {
-        session()->forget('temp_shipping_address');
+            session()->forget('temp_shipping_address');
         }
 
         session()->forget('from_address_change');
@@ -51,19 +51,20 @@ class OrderController extends Controller
     public function edit($item_id)
     {
         $item = Item::findOrFail($item_id);
+
         return view('address_update', compact('item'));
     }
 
     public function update(AddressRequest $request, $item_id)
     {
         session([
-        'temp_shipping_address' => [
-            'shipping_postcode' => $request->shipping_postcode,
-            'shipping_address' => $request->shipping_address,
-            'shipping_building' => $request->shipping_building,
-        ],
-        'from_address_change' => true,
-    ]);
+            'temp_shipping_address' => [
+                'shipping_postcode' => $request->shipping_postcode,
+                'shipping_address' => $request->shipping_address,
+                'shipping_building' => $request->shipping_building,
+            ],
+            'from_address_change' => true,
+        ]);
 
         return redirect("/purchase/{$item_id}");
     }

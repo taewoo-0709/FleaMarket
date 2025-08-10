@@ -12,22 +12,6 @@ class CustomVerifyEmail extends VerifyEmail
 {
     use Queueable;
 
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
     public function via($notifiable)
     {
         return ['mail'];
@@ -50,18 +34,5 @@ class CustomVerifyEmail extends VerifyEmail
             ->action('メールアドレスを認証する', $verificationUrl)
             ->line('このメールに心当たりがない場合は、無視してください。')
             ->line('もし上のリンクがクリックできない場合は、以下のURLをコピーしてブラウザに貼り付けてください。');
-    }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
     }
 }

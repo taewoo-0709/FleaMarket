@@ -13,7 +13,7 @@
     メール認証を完了してください。
   </p>
 
-  <form action="{{ url()->current() }}" method="GET">
+  <form action="{{ url('http://localhost:8025') }}" method="GET">
     <button class="mail-form-btn" type="submit">認証はこちらから</button>
   </form>
   <form action="{{ route('verification.send') }}" method="POST">

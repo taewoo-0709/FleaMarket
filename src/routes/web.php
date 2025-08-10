@@ -13,7 +13,6 @@ use App\Http\Controllers\EmailVerificationController;
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
-
 Route::get('/email/verify', [EmailVerificationController::class, 'showEmailVerificationNotice'])
     ->middleware(['auth'])
     ->name('verification.notice');
@@ -26,7 +25,8 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
     return redirect('/');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
-Route::get('/', [ItemController::class, 'index']);
+Route::get('/', [ItemController::class, 'index'])
+    ->middleware('verified.strict');
 Route::get('/item/{item_id}', [ItemController::class, 'detailShow'])->name('items.detail');
 
 Route::middleware('auth')->group(function () {

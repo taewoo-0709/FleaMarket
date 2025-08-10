@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-
 @if(session('error'))
   <div class="alert-message__error">
     {{ session('error') }}
@@ -16,7 +15,6 @@
     {{ session('message') }}
   </div>
 @endif
-
 <form action="/purchase/confirm/{{ $item->id }}" method="post">
   @csrf
   <div class="purchase-layout">
@@ -30,7 +28,6 @@
           <p class="purchase-price">¥{{ number_format($item->price) }}</p>
         </div>
       </div>
-
       <div class="purchase-block">
         <label class="purchase-form__label">支払い方法</label>
         <div class="custom-select-wrapper">
@@ -50,7 +47,6 @@
           @enderror
         </p>
       </div>
-
       <div class="purchase-block">
         <div class="address-form-wrapper">
           <p class="purchase-form__label">配送先</p>
@@ -65,7 +61,6 @@
           <p class="shipping-postcode">〒{{ $shippingAddress['shipping_postcode'] }}</p>
           <p class="shipping-address">{{ $shippingAddress['shipping_address'] }}</p>
           <p class="shipping-building">{{ $shippingAddress['shipping_building'] }}</p>
-
         </div>
           <p class="purchase-form__error-message">
             @error('address')
@@ -74,7 +69,6 @@
         </p>
       </div>
     </div>
-
     <div class="purchase-right">
       <div class="summary-box">
         <div class="summary-row__price">

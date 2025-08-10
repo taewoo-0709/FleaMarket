@@ -19,64 +19,62 @@ use App\Http\Requests\CommentRequest;
 
 class ItemController extends Controller
 {
-    public function index (Request $request)
-    {
-      $tab = $request->input('tab', 'recommend');
-      $keyword = $request->input('keyword');
+  public function index (Request $request)
+  {
+    $tab = $request->input('tab', 'recommend');
+    $keyword = $request->input('keyword');
 
-      $items = collect();
+    $items = collect();
 
-      if ($tab === 'mylist' && Auth::check()) {
-          $query = Item::whereHas('likes', function ($q) {
-            $q->where('user_id', Auth::id());
-        });
+    if ($tab === 'mylist' && Auth::check()) {
+      $query = Item::whereHas('likes', function ($q) {
+        $q->where('user_id', Auth::id());
+    });
 
-        if (!empty($keyword)) {
-          $query->where('title', 'like', '%' . $keyword . '%');
-        }
-        $items = $query->latest()->get();
-
-      } else {
-        $items = Item::when(Auth::check(), function ($query) {
-              return $query->where('user_id', '!=', Auth::id());
-                  })
-                  ->when(!empty($keyword), function ($query) use ($keyword) {
-                    return $query->where('title', 'like', '%' . $keyword . '%');
-                  })
-                  ->latest()
-                  ->get();
-      }
-
+    if (!empty($keyword)) {
+      $query->where('title', 'like', '%' . $keyword . '%');
+    }
+    $items = $query->latest()->get();
+    } else {
+      $items = Item::when(Auth::check(), function ($query) {
+        return $query->where('user_id', '!=', Auth::id());
+      })
+        ->when(!empty($keyword), function ($query) use ($keyword) {
+          return $query->where('title', 'like', '%' . $keyword . '%');
+        })
+          ->latest()
+          ->get();
+    }
       return view('index', compact('items', 'tab', 'keyword'));
+  }
+
+  public function show()
+  {
+    $categories = Category::all();
+    $conditions = Condition::all();
+
+      return view('exhibition', compact('categories', 'conditions'));
+  }
+
+  public function store(ExhibitionRequest $request)
+  {
+    $item = new Item();
+
+    $item->title = $request->title;
+    $item->brand = $request->brand;
+    $item->item_explain = $request->item_explain;
+    $item->price = $request->price;
+    $item->condition_id = $request->condition_id;
+    $item->user_id = Auth::id();
+
+    if ($request->hasFile('image_url')) {
+      $path = $request->file('image_url')->store('items', 'public');
+      $item->image_url = $path;
     }
 
-    public function show()
-    {
-        $categories = Category::all();
-        $conditions = Condition::all();
+    $item->save();
 
-        return view('exhibition', compact('categories', 'conditions'));
-    }
-
-    public function store(ExhibitionRequest $request)
-    {
-      $item = new Item();
-
-      $item->title = $request->title;
-      $item->brand = $request->brand;
-      $item->item_explain = $request->item_explain;
-      $item->price = $request->price;
-      $item->condition_id = $request->condition_id;
-      $item->user_id = Auth::id();
-
-      if ($request->hasFile('image_url')) {
-          $path = $request->file('image_url')->store('items', 'public');
-          $item->image_url = $path;
-    }
-
-      $item->save();
-
-      $item->categories()->attach($request->category_id);
+    $item->categories()->attach($request->category_id);
 
     return redirect('/')->with('message', '商品を出品しました');
   }
@@ -84,10 +82,9 @@ class ItemController extends Controller
   public function detailShow($item_id)
   {
     $item = Item::with(['likes', 'likedUsers', 'comments.user', 'categories', 'condition'])->findOrFail($item_id);
-
     $isSeller = Auth::check() && Auth::id() === $item->user_id;
-
     $isPurchased = $item->order()->exists();
+
     return view('item', compact('item', 'isSeller', 'isPurchased'));
   }
 

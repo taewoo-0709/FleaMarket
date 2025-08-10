@@ -5,18 +5,15 @@
 @endsection
 
 @section('content')
-
 @if(session('message'))
   <div class="alert-message">
     {{ session('message') }}
   </div>
 @endif
-
 <div class="tab-wrapper">
   <a class="tab {{ ($tab ?? '') === 'recommend' ? 'active' : '' }}" href="{{ url('/') }}?tab=recommend&keyword={{ urlencode($keyword ?? '') }}">おすすめ</a>
   <a class="tab {{ ($tab ?? '') === 'mylist' ? 'active' : '' }}" href="{{ url('/') }}?tab=mylist&keyword={{ urlencode($keyword ?? '') }}">マイリスト</a>
 </div>
-
 @if(!empty($keyword))
   <div class="item-list">
     @forelse($items as $item)
@@ -31,10 +28,10 @@
           <span class="sold-label">Sold</span>
         @endif
       </div>
-    @empty
-      <div class="empty-alert-wrapper">
-        <p class="empty-message">該当する商品が見つかりませんでした</p>
-      </div>
+      @empty
+        <div class="empty-alert-wrapper">
+          <p class="empty-message">該当する商品が見つかりませんでした</p>
+        </div>
     @endforelse
   </div>
 @else
@@ -53,10 +50,10 @@
               <span class="sold-label">Sold</span>
             @endif
           </div>
-        @empty
-          <div class="empty-alert-wrapper">
-            <p class="empty-message">マイリストに商品はありません</p>
-          </div>
+          @empty
+            <div class="empty-alert-wrapper">
+              <p class="empty-message">マイリストに商品はありません</p>
+            </div>
         @endforelse
       @else
         <div class="empty-alert-wrapper">
@@ -76,10 +73,10 @@
             <span class="sold-label">Sold</span>
           @endif
         </div>
-      @empty
-        <div class="empty-alert-wrapper">
-          <p class="empty-message">おすすめ商品はありません</p>
-        </div>
+        @empty
+          <div class="empty-alert-wrapper">
+            <p class="empty-message">おすすめ商品はありません</p>
+          </div>
       @endforelse
     @endif
   </div>
