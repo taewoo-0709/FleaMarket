@@ -82,8 +82,8 @@ docker-compose up -d --build
 
 ②カード支払いの場合は、カード番号の入力画面が表示されます。（Stripeの画面）<br>
 カード番号は、https://docs.stripe.com/testing?locale=ja-JP を参考にしてください。<br>
-例:<br>
 
+例:<br>
 カード番号:4242 4242 4242 4242<br>
 名前: スペース区切りで名字と氏名を記入した名前なら何でも使用できます（例: Taro Taguchi）<br>
 有効期限: 現在時刻より未来の年月を指定してください。<br>
