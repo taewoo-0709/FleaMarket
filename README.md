@@ -51,11 +51,13 @@ docker-compose up -d --build
 
 4. ターミナル②で送信先にイベントを転送する<br>
 例： stripe listen --forward-to http://localhost/api/webhook/stripe <br>
+
 ※使用している環境構築によって変化することがあります。<br>
 上記のstripe listenコマンドは、LaravelのDockerの環境下で、nginxの80番ポートで環境構築している場合が対象です。<br>
 
 成功すると、Webhook signing secret が表示されます。これを .env に設定してください。<br>
 例：STRIPE_WEBHOOK_SECRET=whsec_XXXXXXXXXXXXXXXXXX <br>
+
  ※.envファイルにSTRIPE_SECRET=sk_test_...をStripe CLIのAPIキーからコピー&ペーストしてください。<br>
  ※.envファイルを操作したらキャッシュクリアをするか、dockerの再ビルドをしてください。<br>
 
@@ -81,6 +83,7 @@ docker-compose up -d --build
 ②カード支払いの場合は、カード番号の入力画面が表示されます。（Stripeの画面）<br>
 カード番号は、https://docs.stripe.com/testing?locale=ja-JP を参考にしてください。<br>
 例:<br>
+
 カード番号:4242 4242 4242 4242<br>
 名前: スペース区切りで名字と氏名を記入した名前なら何でも使用できます（例: Taro Taguchi）<br>
 有効期限: 現在時刻より未来の年月を指定してください。<br>
