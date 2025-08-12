@@ -45,6 +45,7 @@ stripe login
 
 ※以下からは決済機能を実行する場合、毎回行う必要があります。<br>
 ターミナルを3つ準備してください。<br>
+
 3. ターミナル①でdockerを起動させる<br>
 docker-compose up -d --build
 
