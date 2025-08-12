@@ -11,6 +11,12 @@ return [
     | as the size rules. Feel free to tweak each of these messages.
     |
     */
+    'attributes' => [
+        'name' => 'お名前',
+        'email' => 'メールアドレス',
+        'password' => 'パスワード',
+    ],
+
 
     'accepted'             => ':attributeを承認してください。',
     'active_url'           => ':attributeは、有効なURLではありません。',
