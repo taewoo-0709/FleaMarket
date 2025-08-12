@@ -18,23 +18,23 @@ class WebhookController extends Controller
         try {
             $event = Webhook::constructEvent($payload, $sig_header, $secret);
         } catch (\Exception $e) {
-            // Log::error('Invalid Stripe Webhook signature: ' . $e->getMessage());
+            Log::error('Invalid Stripe Webhook signature: ' . $e->getMessage());
             return response('Invalid signature', 400);
         }
 
-        // Log::info('Stripe Webhook received', ['type' => $event->type]);
+        Log::info('Stripe Webhook received', ['type' => $event->type]);
 
         try {
             if ($event->type === 'checkout.session.completed') {
                 $session = $event->data->object;
                 $paymentIntentId = $session->payment_intent;
 
-                // Log::info('Calling storeOrderFromCheckoutSession', ['session_id' => $session->id, 'payment_intent' => $paymentIntentId]);
+                Log::info('Calling storeOrderFromCheckoutSession', ['session_id' => $session->id, 'payment_intent' => $paymentIntentId]);
 
                 $this->storeOrderFromCheckoutSession($session, $paymentIntentId);
             }
             } catch (\Exception $e) {
-            // Log::error('Error processing webhook: ' . $e->getMessage());
+            Log::error('Error processing webhook: ' . $e->getMessage());
             return response('Webhook handler error', 500);
         }
 
@@ -43,7 +43,7 @@ class WebhookController extends Controller
 
     protected function storeOrderFromCheckoutSession($session, $paymentIntentId)
     {
-        // Log::info('Processing checkout.session.completed', ['session_id' => $session->id]);
+        Log::info('Processing checkout.session.completed', ['session_id' => $session->id]);
 
         $userId = $session->metadata->user_id ?? null;
         $itemId = $session->metadata->item_id ?? null;
@@ -52,12 +52,12 @@ class WebhookController extends Controller
         $building = $session->metadata->shipping_building ?? null;
 
         if (!$userId || !$itemId || !$paymentIntentId) {
-            // Log::warning('Missing metadata or paymentIntentId in checkout.session.completed', compact('userId', 'itemId', 'paymentIntentId'));
+            Log::warning('Missing metadata or paymentIntentId in checkout.session.completed', compact('userId', 'itemId', 'paymentIntentId'));
             return;
         }
 
         if (Order::where('stripe_payment_id', $paymentIntentId)->exists()) {
-            // Log::info('Order already exists, skipping', ['stripe_payment_id' => $paymentIntentId]);
+            Log::info('Order already exists, skipping', ['stripe_payment_id' => $paymentIntentId]);
             return;
         }
 
@@ -71,6 +71,6 @@ class WebhookController extends Controller
             'shipping_building' => $building,
         ]);
 
-        // Log::info('Order created from checkout.session.completed', ['stripe_payment_id' => $paymentIntentId]);
+        Log::info('Order created from checkout.session.completed', ['stripe_payment_id' => $paymentIntentId]);
     }
 }

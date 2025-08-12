@@ -23,12 +23,18 @@ Laravel 環境構築
 
 ・ php artisan db:seed
 
+### ユーザー例
+名前: テスト 太郎
+メールアドレス: test@example.com
+パスワード: coachtech1100
+
 ## メール認証機能
 mailhogを使用しています。
 メール認証誘導画面の、「認証はこちら」ボタンからmailhogに遷移するため、mailhogに届いているメールから認証作業をしてください。
 
-## Stripe コンビニ決済時のテスト手順
+## Stripe 決済時のテスト手順
 このアプリでは、Stripeのwebhook(支払い完了通知)を受けて、コンビニ決済の処理を完了させています。
+カード払いも同様にwebhookを使用し、DBへの保存処理を実行しています。
 ローカル開発環境でのStripe CLIを使ったテスト手順は以下の通りです。
 
 1. Stripe CLIをインストール(未導入の場合)
@@ -37,33 +43,34 @@ https://stripe.com/docs/stripe-cli
 2. Stripe CLIにログイン(初回のみ)
 stripe login
 
+※以下からは決済機能を実行する場合、毎回行う必要があります。
+ターミナルを3つ準備してください。
 3. ターミナル①でdockerを起動させる
 docker-compose up -d --build
 
 4. ターミナル②で送信先にイベントを転送する
-例：stripe listen --forward-to api/webhook/stripe
+例： stripe listen --forward-to http://localhost/api/webhook/stripe
+※使用している環境構築によって変化することがあります。
+上記のstripe listenコマンドは、LaravelのDockerの環境下で、nginxの80番ポートで環境構築している場合が対象です。
 
-成功すると、Webhook signing secret が表示されます。これを .env に設定してください：STRIPE_WEBHOOK_SECRET=whsec_XXXXXXXXXXXXXXXXXX
+成功すると、Webhook signing secret が表示されます。これを .env に設定してください。
+例：STRIPE_WEBHOOK_SECRET=whsec_XXXXXXXXXXXXXXXXXX
 
- ※.envファイルにSTRIPE_SECRET=sk_test_...をStripeのAPIキーからコピー&ペーストしてください。
+ ※.envファイルにSTRIPE_SECRET=sk_test_...をStripe CLIのAPIキーからコピー&ペーストしてください。
 
  ※.envファイルを操作したらキャッシュクリアをするか、dockerの再ビルドをしてください。
 
-5. ターミナル③でstripe trigger payment_intent.succeededを実行してください。
+5. ターミナル③で stripe trigger payment_intent.succeeded を実行してください。
 
 6. laravel.logなどでwebhook呼び出し記録を確認し、[200]が返っているか確認してください。
-※laravel.logなどログを使用する場合は、WebhookController.phpでコメントアウトになっている「Log::~」を使用できるようにしてからログ確認をしてください。8箇所あります。
+※ログへの記載に関するコードは,app/Http/Controllers/WebhookController.phpに記述しています。
 
-※ログを使用せず、ターミナル②で確認する場合は、コメントアウトのままでも確認ができます。[200]が返っていたら成功です。
+7. 開発サイトからコンビニ支払い・カード支払いを実行してください。
 
-7. 開発サイトからコンビニ支払いを実行してください。
+※コンビニ決済の場合は、4~5分ほど時間を置いて決済完了させるか、実際にCheckoutを動かして実際の支払いフローから操作確認してください。
+※カード支払いの場合は、一覧画面に遷移されます。
 
-※4~5分ほど時間を置いて決済完了させるか、実際にCheckoutを動かして実際の支払いフローから操作確認してください。
-
-8. DBのordersテーブルに保存されているか確認してください。
-
-## カード支払い
-コンビニ支払い手順の1~3までが済んでいれば、購入画面から進めるかと思います。
+8. DBのordersテーブルに保存されているか・一覧画面にてSold表示になっているか・マイページの購入した商品に表示されているか 確認してください。
 
 
 ### カード・コンビニ決済時の処理概要
@@ -74,6 +81,11 @@ docker-compose up -d --build
 
 ②カード支払いの場合は、カード番号の入力画面が表示されます。（Stripeの画面）
 カード番号は、https://docs.stripe.com/testing?locale=ja-JP を参考にしてください。
+例:
+カード番号:4242 4242 4242 4242
+名前: スペース区切りで名字と氏名を記入した名前なら何でも使用できます（例: Taro Taguchi）
+有効期限: 現在時刻より未来の年月を指定してください。
+セキュリティーコード: 適当な3桁か4桁の数字を入力してください。
 
 ・支払い完了後、Stripe Webhookによってサーバー側が処理され、ordersテーブルに注文が保存されます。
 
@@ -94,6 +106,8 @@ docker-compose up -d --build
 ・nginx 1.21.1
 
 ・mailhog
+
+・Stripe
 
 ## URL
 
