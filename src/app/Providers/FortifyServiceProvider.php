@@ -12,6 +12,8 @@ use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 use Laravel\Fortify\Contracts\RegisterResponse;
 use App\Http\Requests\LoginRequest;
 use App\Http\Responses\CustomRegisterResponse;
+use App\Actions\Fortify\CustomLoginResponse;
+use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
 
 
 class FortifyServiceProvider extends ServiceProvider
@@ -23,6 +25,9 @@ class FortifyServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        Fortify::loginView(function () {
+            return view('auth.login');
+        });
 
         Fortify::createUsersUsing(CreateNewUser::class);
 
@@ -37,6 +42,8 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         $this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
+
+        $this->app->singleton(LoginResponseContract::class, CustomLoginResponse::class);
 
         $this->app->singleton(RegisterResponse::class, CustomRegisterResponse::class);
 

@@ -10,23 +10,21 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\EmailVerificationController;
 
 
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
 Route::get('/email/verify', [EmailVerificationController::class, 'showEmailVerificationNotice'])
-    ->middleware(['auth'])
     ->name('verification.notice');
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back();
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect('/');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
+    ->middleware(['signed', 'throttle:6,1'])
+    ->name('verification.verify');
 
-Route::get('/', [ItemController::class, 'index'])
-    ->middleware('verified.strict');
+Route::get('/login', function () {
+    return view('auth.login');
+})->middleware('guest')->name('login');
+
+Route::get('/', [ItemController::class, 'index']);
 Route::get('/item/{item_id}', [ItemController::class, 'detailShow'])->name('items.detail');
 
 Route::middleware('auth')->group(function () {
