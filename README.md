@@ -95,7 +95,7 @@ docker-compose up -d --build
 
 
 ## ER図
-<img width="425" height="600" alt="スクリーンショット 2025-08-06 21 35 51" src="https://github.com/user-attachments/assets/ac90230f-e975-4237-b6b5-2774eeec8c15" />
+<img width="422" height="597" alt="スクリーンショット 2025-08-14 20 23 56" src="https://github.com/user-attachments/assets/0ffb2d0c-0a0d-42df-9146-15077b56efb1" />
 
 ## 使用技術 🔗
 
