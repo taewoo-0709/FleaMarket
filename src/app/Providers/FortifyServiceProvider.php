@@ -12,7 +12,6 @@ use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 use Laravel\Fortify\Contracts\RegisterResponse;
 use App\Http\Requests\LoginRequest;
 use App\Http\Responses\CustomRegisterResponse;
-use Laravel\Fortify\Contracts\VerifyEmailViewResponse;
 
 
 class FortifyServiceProvider extends ServiceProvider
@@ -38,9 +37,6 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         $this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
-
-        $this->app->singleton(LoginResponse::class,
-        LoginResponse::class);
 
         $this->app->singleton(RegisterResponse::class, CustomRegisterResponse::class);
 

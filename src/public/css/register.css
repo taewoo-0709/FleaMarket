@@ -1,6 +1,8 @@
 .register-form__inner {
   display: flex;
   justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 85px);
 }
 
 .register-form__heading {
@@ -12,6 +14,7 @@
 .register-form__form {
   padding: 64px 96px;
   width: 50vw;
+  max-width: 600px;
 }
 
 .register-form__group {

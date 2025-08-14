@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Category;
@@ -16,15 +14,16 @@ class ItemsTableSeeder extends Seeder
 
     public function run()
     {
-
         $condition_verygood = Condition::where('condition_kind', '良好')->first();
         $condition_good = Condition::where('condition_kind', '目立った傷や汚れなし')->first();
         $condition_soso = Condition::where('condition_kind', 'やや傷や汚れあり')->first();
         $condition_bad = Condition::where('condition_kind', '状態が悪い')->first();
 
+        $userIds = User::pluck('id')->toArray();
+
         $items = [
             [
-                'user_id' => 1,
+                'user_id' => $this->getRandomUserId($userIds),
                 'title' => '腕時計',
                 'price' => 15000,
                 'brand' => 'Rolax',
@@ -34,7 +33,7 @@ class ItemsTableSeeder extends Seeder
             ],
 
             [
-                'user_id' => 2,
+                'user_id' => $this->getRandomUserId($userIds),
                 'title' => 'HDD',
                 'price' => 5000,
                 'brand' => '西芝',
@@ -44,7 +43,7 @@ class ItemsTableSeeder extends Seeder
             ],
 
             [
-                'user_id' => 3,
+                'user_id' => $this->getRandomUserId($userIds),
                 'title' => '玉ねぎ',
                 'price' => 300,
                 'brand' => 'なし',
@@ -54,7 +53,7 @@ class ItemsTableSeeder extends Seeder
             ],
 
             [
-                'user_id' => 4,
+                'user_id' => $this->getRandomUserId($userIds),
                 'title' => '革靴',
                 'price' => 4000,
                 'brand' => '',
@@ -64,7 +63,7 @@ class ItemsTableSeeder extends Seeder
             ],
 
             [
-                'user_id' => 1,
+                'user_id' => $this->getRandomUserId($userIds),
                 'title' => 'ノートPC',
                 'price' => 45000,
                 'brand' => '',
@@ -74,7 +73,7 @@ class ItemsTableSeeder extends Seeder
             ],
 
             [
-                'user_id' => 2,
+                'user_id' => $this->getRandomUserId($userIds),
                 'title' => 'マイク',
                 'price' => 8000,
                 'brand' => 'なし',
@@ -84,7 +83,7 @@ class ItemsTableSeeder extends Seeder
             ],
 
             [
-                'user_id' => 3,
+                'user_id' => $this->getRandomUserId($userIds),
                 'title' => 'ショルダーバッグ',
                 'price' => 3500,
                 'brand' => '',
@@ -94,7 +93,7 @@ class ItemsTableSeeder extends Seeder
             ],
 
             [
-                'user_id' => 4,
+                'user_id' => $this->getRandomUserId($userIds),
                 'title' => 'タンブラー',
                 'price' => 500,
                 'brand' => 'なし',
@@ -104,7 +103,7 @@ class ItemsTableSeeder extends Seeder
             ],
 
             [
-                'user_id' => 1,
+                'user_id' => $this->getRandomUserId($userIds),
                 'title' => 'コーヒーミル',
                 'price' => 4000,
                 'brand' => 'Starbacks',
@@ -114,7 +113,7 @@ class ItemsTableSeeder extends Seeder
             ],
 
             [
-                'user_id' => 2,
+                'user_id' => $this->getRandomUserId($userIds),
                 'title' => 'メイクセット',
                 'price' => 2500,
                 'brand' => '',
@@ -125,5 +124,9 @@ class ItemsTableSeeder extends Seeder
         ];
 
         DB::table('items')->insert($items);
+    }
+    private function getRandomUserId(array $userIds)
+    {
+        return $userIds[array_rand($userIds)];
     }
 }

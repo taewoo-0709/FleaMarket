@@ -3,11 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Payment;
 
 class PaymentsTableSeeder extends Seeder
 {
-
     public function run()
     {
 
@@ -17,9 +16,7 @@ class PaymentsTableSeeder extends Seeder
         ];
 
         foreach ($methods as $payment_method) {
-            DB::table('payments')->insert([
-                'payment_method' => $payment_method,
-            ]);
+            Payment::create(['payment_method' => $payment_method]);
         }
     }
 }

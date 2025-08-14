@@ -2,20 +2,23 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
 use Tests\TestCase;
 
 class LogoutTest extends TestCase
 {
-    public function test_logout_works()
+    use RefreshDatabase;
+
+    /** @test */
+    public function logout_works()
     {
         $user = User::factory()->create();
-        $this->actingAs($user);
 
-        $response = $this->post(route('logout'));
+        $this->actingAs($user)
+            ->post(route('logout'))
+            ->assertRedirect('/');
 
         $this->assertGuest();
-
-        $response->assertRedirect('/');
     }
 }

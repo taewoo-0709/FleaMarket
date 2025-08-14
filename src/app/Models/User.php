@@ -8,6 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Notifications\CustomVerifyEmail;
+use App\Models\Item;
+use App\Models\Comment;
+use App\Models\Like;
+use App\Models\Order;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -48,7 +52,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function likedItems()
     {
-        return $this->belongsToMany(Item::class, 'likes')->withTimestamps();
+        return $this->belongsToMany(Item::class, 'likes', 'user_id', 'item_id')->withTimestamps();
     }
 
     public function orders()

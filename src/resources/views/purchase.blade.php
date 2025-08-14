@@ -78,7 +78,7 @@
         <div class="summary-row">
           <span class="summary-title">支払い方法</span>
           <span class="summary-content" id="selected-payment" >
-            {{ optional($payments->firstWhere('id', old('payment_id')))->payment_method ?? '未選択' }}
+            {{ optional($payments->firstWhere('id', old('payment_id', $selectedPaymentId)))->payment_method ?? '未選択' }}
           </span>
         </div>
       </div>

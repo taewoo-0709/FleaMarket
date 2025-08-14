@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Item;
 
 class Condition extends Model
 {
     use HasFactory;
 
-    protected $fillabe = [
+    protected $fillable = [
         'condition_kind',
     ];
 

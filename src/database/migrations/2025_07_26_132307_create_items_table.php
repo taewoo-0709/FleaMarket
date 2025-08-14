@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateItemsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('items', function (Blueprint $table) {

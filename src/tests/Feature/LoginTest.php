@@ -10,51 +10,55 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_email_is_required()
+    /** @test */
+    public function email_is_required()
     {
-        $response = $this->post('/login', [
+        $this->post('/login', [
             'email' => '',
             'password' => 'password123',
+        ])
+        ->assertSessionHasErrors([
+            'email' => 'メールアドレスを入力してください',
         ]);
-
-        $response->assertSessionHasErrors(['email' => 'メールアドレスを入力してください']);
     }
 
-    public function test_password_is_required()
+    /** @test */
+    public function password_is_required()
     {
-        $response = $this->post('/login', [
+        $this->post('/login', [
             'email' => 'test@example.com',
             'password' => '',
+        ])
+        ->assertSessionHasErrors([
+            'password' => 'パスワードを入力してください',
         ]);
-
-        $response->assertSessionHasErrors(['password' => 'パスワードを入力してください']);
     }
 
-    public function test_invalid_credentials()
+    /** @test */
+    public function invalid_credentials()
     {
-        $response = $this->post('/login', [
+        $this->post('/login', [
             'email' => 'notfound@example.com',
             'password' => 'wrongpassword',
-        ]);
-
-        $response->assertSessionHasErrors([
+        ])
+        ->assertSessionHasErrors([
             'email' => 'ログイン情報が登録されていません',
         ]);
     }
 
-    public function test_successful_login()
+    /** @test */
+    public function successful_login()
     {
         $user = User::factory()->create([
             'email' => 'test@example.com',
             'password' => bcrypt('password123'),
         ]);
 
-        $response = $this->post('/login', [
+        $this->post('/login', [
             'email' => 'test@example.com',
             'password' => 'password123',
-        ]);
-
-        $response->assertRedirect('/');
+        ])
+        ->assertRedirect('/');
 
         $this->assertAuthenticatedAs($user);
     }

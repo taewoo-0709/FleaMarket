@@ -4,14 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Comment;
+use App\Models\Like;
+use App\Models\Category;
+use App\Models\Condition;
+use App\Models\Order;
 
 class Item extends Model
 {
     use HasFactory;
 
-    protected $fillabe = [
+    protected $fillable = [
         'user_id',
-        'category_id',
         'condition_id',
         'image_url',
         'title',
@@ -36,7 +41,7 @@ class Item extends Model
 
     public function likedUsers()
     {
-        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
+        return $this->belongsToMany(User::class, 'likes', 'item_id', 'user_id')->withTimestamps();
     }
 
     public function categories()

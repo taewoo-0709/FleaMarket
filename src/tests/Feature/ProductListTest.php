@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Models\Condition;
 use Tests\TestCase;
 
 class ProductListTest extends TestCase
@@ -16,27 +17,26 @@ class ProductListTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        $this->seed(\Database\Seeders\ConditionsTableSeeder::class);
-
-        $this->seed();
+        Condition::factory()->count(3)->create();
     }
 
-    public function test_all_items_are_displayed()
+    /** @test */
+    public function all_items_are_displayed()
     {
-        $response = $this->get('/');
+        Item::factory()->count(3)->create();
 
-        $response->assertStatus(200);
+        $this->get('/')
+            ->assertStatus(200);
     }
 
-    public function test_sold_label_is_displayed_for_purchased_items()
+    /** @test */
+    public function sold_label_is_displayed_for_purchased_items()
     {
-        $user = User::factory()->create();
         $item = Item::factory()->create();
         $payment = Payment::factory()->create();
 
         Order::create([
-            'user_id' => $user->id,
+            'user_id' => User::factory()->create()->id,
             'item_id' => $item->id,
             'payment_id' => $payment->id,
             'stripe_payment_id' => 'test_payment_123',
@@ -45,25 +45,34 @@ class ProductListTest extends TestCase
             'shipping_building' => 'テストビル',
         ]);
 
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
-
-        $response->assertSee('Sold');
+        $this->get('/')
+            ->assertStatus(200)
+            ->assertSee('Sold');
     }
 
-    public function test_own_items_are_not_displayed_in_list()
+    /** @test */
+    public function own_items_are_not_displayed_in_list()
     {
-        $user = \App\Models\User::find(1);
+        $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get('/');
+        Item::factory()->count(2)->sequence(
+            ['user_id' => $user->id, 'title' => '腕時計'],
+            ['user_id' => $user->id, 'title' => 'ノートPC']
+        )->create();
 
-        $response->assertStatus(200);
+        $otherUser = User::factory()->create();
 
-        $response->assertDontSee('腕時計');
-        $response->assertDontSee('ノートPC');
+        Item::factory()->count(2)->sequence(
+            ['user_id' => $otherUser->id, 'title' => 'HDD'],
+            ['user_id' => $otherUser->id, 'title' => '玉ねぎ']
+        )->create();
 
-        $response->assertSee('HDD');
-        $response->assertSee('玉ねぎ');
+        $this->actingAs($user)
+            ->get('/')
+            ->assertStatus(200)
+            ->assertDontSee('腕時計')
+            ->assertDontSee('ノートPC')
+            ->assertSee('HDD')
+            ->assertSee('玉ねぎ');
     }
 }

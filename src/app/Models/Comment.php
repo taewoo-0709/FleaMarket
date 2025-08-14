@@ -4,12 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Item;
+
 
 class Comment extends Model
 {
     use HasFactory;
 
-    protected $fillabe = [
+    protected $fillable = [
         'user_id',
         'item_id',
         'comment',
