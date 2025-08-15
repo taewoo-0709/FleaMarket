@@ -6,6 +6,11 @@
 
 @section('content')
 
+@if(session('error'))
+  <div class="alert-message__error">
+    {{ session('error') }}
+  </div>
+@endif
 @if(session('message'))
   <div class="alert-message">
     {{ session('message') }}
