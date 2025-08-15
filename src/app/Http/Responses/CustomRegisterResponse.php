@@ -9,7 +9,9 @@ class CustomRegisterResponse implements RegisterResponseContract
 {
     public function toResponse($request)
     {
-        session(['registered_user_id' => $request->user()->id]);
+        if ($request->user()) {
+            session(['registered_user_id' => $request->user()->id]);
+        }
 
         Auth::logout();
 

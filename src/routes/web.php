@@ -12,12 +12,9 @@ use App\Http\Controllers\EmailVerificationController;
 
 Route::get('/email/verify', [EmailVerificationController::class, 'showEmailVerificationNotice'])
     ->name('verification.notice');
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
-    return back();
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+Route::post('/email/verification-notification', [EmailVerificationController::class, 'resend'])
+    ->name('verification.send');
 Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
-    ->middleware(['signed', 'throttle:6,1'])
     ->name('verification.verify');
 
 Route::get('/login', function () {

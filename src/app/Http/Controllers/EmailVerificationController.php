@@ -18,16 +18,26 @@ class EmailVerificationController extends Controller
         return view('auth.verify', ['user' => $user]);
     }
 
-    public function verify(EmailVerificationRequest $request)
+    public function verify(Request $request, $id, $hash)
     {
-        if (!$request->user()->hasVerifiedEmail()) {
-            $request->fulfill();
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'ユーザーが見つかりません');
         }
 
-        Auth::login($request->user());
+        if (!hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
+            return redirect()->route('login')->with('error', 'メール認証リンクが無効です');
+        }
 
-        return redirect()->route('items.list')
-            ->with('message', 'メール認証が完了しました。');
+        if (!$user->hasVerifiedEmail()) {
+            $user->markEmailAsVerified();
+            event(new Verified($user));
+        }
+
+        Auth::login($user);
+        session()->forget('registered_user_id');
+
+        return redirect()->route('items.list')->with('message', 'メール認証が完了しました。');
     }
 }
-
