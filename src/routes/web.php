@@ -44,7 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/purchase/success/{item_id}', [OrderController::class, 'success']);
     Route::get('/purchase/cancel/{item_id}', [OrderController::class, 'cancel']);
 
-    Route::get('/items', [ItemController::class, 'index'])->name('items.list');
+    Route::get('/items', [ItemController::class, 'index'])->middleware(['auth', 'verified'])
+    ->name('items.list');
     Route::get('/mypage/purchased', [ProfileController::class, 'show'])
     ->name('profile.purchased')
     ->defaults('page', 'buy');

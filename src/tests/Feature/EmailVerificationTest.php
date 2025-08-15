@@ -51,7 +51,7 @@ class EmailVerificationTest extends TestCase
 
         $this->actingAs($user)
             ->get($verificationUrl)
-            ->assertRedirect('/');
+            ->assertRedirect('/items');
 
         $this->assertTrue($user->fresh()->hasVerifiedEmail());
     }
@@ -72,7 +72,7 @@ class EmailVerificationTest extends TestCase
         $user = User::factory()->create(['email_verified_at' => null]);
 
         $this->actingAs($user)
-            ->get('/')
+            ->get('/items')
             ->assertRedirect(route('verification.notice'));
     }
 }

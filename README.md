@@ -93,6 +93,14 @@ docker-compose up -d --build
 
 ・コンビニ決済完了後のページ遷移はありませんが、購入処理は完了しているため、商品は「Sold」状態になります。
 
+## テスト実施
+### テスト用データベースの作成・コマンド
+1. MySQLコンテナで、「demo_test」というDBを作成。
+2. ＜php artisan key:generate --env=testing＞を実行し、.env.testingのAPP_KEY= にアプリケーションキーを追加
+3. <php artisan config:clear>
+4. <php artisan migrate --env=testing>
+5. <php artisan test>
+
 
 ## ER図
 <img width="422" height="597" alt="スクリーンショット 2025-08-14 20 23 56" src="https://github.com/user-attachments/assets/0ffb2d0c-0a0d-42df-9146-15077b56efb1" />
