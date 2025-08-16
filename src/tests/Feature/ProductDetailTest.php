@@ -26,7 +26,7 @@ class ProductDetailTest extends TestCase
     }
 
     /** @test */
-    public function test_product_detail_displays_all_required_information_including_image()
+    public function product_detail_displays_all_required_information_including_image()
     {
         Storage::fake('public');
 
@@ -78,7 +78,7 @@ class ProductDetailTest extends TestCase
     }
 
     /** @test */
-    public function test_multiple_selected_categories_are_displayed()
+    public function multiple_selected_categories_are_displayed()
     {
         $categories = Category::factory()->count(3)->create();
         $item = Item::factory()->create();

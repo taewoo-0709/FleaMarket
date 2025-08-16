@@ -33,7 +33,7 @@
         <label class="address-update-form__label" for="building">建物名</label>
         <input class="address-update-form__input" type="text" name="shipping_building" id="building">
       </div>
-      <input class="address-update-form__btn btn" type="submit" value="更新する">
+      <input class="address-update-form__btn" type="submit" value="更新する">
     </form>
   </div>
 </div>

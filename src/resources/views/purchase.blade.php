@@ -38,7 +38,7 @@
               {{ old('payment_id') == $payment->id ? 'selected' : '' }}>
               {{ $payment->payment_method }}
               </option>
-              @endforeach
+            @endforeach
           </select>
         </div>
         <p class="purchase-form__error-message">
@@ -62,10 +62,10 @@
           <p class="shipping-address">{{ $shippingAddress['shipping_address'] }}</p>
           <p class="shipping-building">{{ $shippingAddress['shipping_building'] }}</p>
         </div>
-          <p class="purchase-form__error-message">
-            @error('address')
-            {{ $message }}
-            @enderror
+        <p class="purchase-form__error-message">
+          @error('address')
+          {{ $message }}
+          @enderror
         </p>
       </div>
     </div>

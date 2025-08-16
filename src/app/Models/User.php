@@ -11,7 +11,6 @@ use App\Models\Item;
 use App\Models\Comment;
 use App\Models\Like;
 use App\Models\Order;
-use App\Notifications\CodeVerifyNotification;
 
 class User extends Authenticatable implements MustVerifyEmail
 {

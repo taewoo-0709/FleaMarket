@@ -94,7 +94,7 @@
           @enderror
         </p>
       </div>
-      <input class="exhibition-form__btn btn" type="submit" value="出品する">
+      <input class="exhibition-form__btn" type="submit" value="出品する">
     </form>
   </div>
 </div>

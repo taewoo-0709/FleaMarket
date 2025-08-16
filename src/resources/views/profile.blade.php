@@ -14,6 +14,7 @@
       <a class="edit-button" href="/mypage/profile">プロフィールを編集</a>
   </div>
 </div>
+
 <div class="tab-wrapper">
   <a class="tab {{ ($page ?? '') === 'sell' ? 'active' : '' }}" href="{{ url('/mypage?page=sell') }}">出品した商品</a>
   <a class="tab {{ ($page ?? '') === 'buy' ? 'active' : '' }}" href="{{ url('/mypage?page=buy') }}">購入した商品</a>

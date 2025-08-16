@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Item;
-use App\Models\Like;
 use App\Models\Condition;
 use App\Models\Category;
 
@@ -23,7 +22,7 @@ class LikeTest extends TestCase
     }
 
     /** @test */
-    public function user_can_like_a_product_and_like_count_increases()
+    public function user_can_like_a_product_and_like_count()
     {
         $user = User::factory()->create();
         $item = Item::factory()->create();
@@ -41,7 +40,7 @@ class LikeTest extends TestCase
     }
 
     /** @test */
-    public function like_icon_has_liked_class_after_liking()
+    public function like_icon_has_liked_class()
     {
         $user = User::factory()->create();
         $item = Item::factory()->create();

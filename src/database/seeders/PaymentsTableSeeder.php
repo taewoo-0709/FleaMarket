@@ -9,7 +9,6 @@ class PaymentsTableSeeder extends Seeder
 {
     public function run()
     {
-
         $methods = [
             "コンビニ払い",
             "カード支払い",

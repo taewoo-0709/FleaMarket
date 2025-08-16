@@ -1,18 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\LikeController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\EmailCodeController;
 
 Route::get('/email/verify', [EmailVerificationController::class, 'showEmailVerificationNotice'])
     ->name('verification.notice');
-Route::post('/email/verification-notification', [EmailCodeController::class, 'resend'])
+Route::post('/email/verify', [EmailCodeController::class, 'resend'])
     ->name('verification.send');
 
 

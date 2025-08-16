@@ -16,11 +16,9 @@ class CustomRedirectIfAuthenticated
                 if (!$user->hasVerifiedEmail()) {
                     return $next($request);
                 }
-
                 return redirect()->intended(config('fortify.home'));
             }
         }
-
         return $next($request);
     }
 }

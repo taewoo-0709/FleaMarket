@@ -46,7 +46,6 @@ class ProfileController extends Controller
         return redirect($request->input('redirect_after_profile_update'))
             ->with('message', 'プロフィールを更新しました');
         }
-
         return redirect('/')->with('message', 'プロフィールを更新しました');
     }
 
@@ -59,7 +58,6 @@ class ProfileController extends Controller
         } else {
             $items = Auth::user()->items()->latest()->get();
         }
-
         return view('profile', compact('items', 'page'));
     }
 }

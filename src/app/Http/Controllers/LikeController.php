@@ -12,8 +12,8 @@ class LikeController extends Controller
         $user = Auth::user();
 
         $like = Like::where('user_id', $user->id)
-                ->where('item_id', $item_id)
-                ->first();
+            ->where('item_id', $item_id)
+            ->first();
 
         if ($like) {
             $like->delete();
@@ -23,7 +23,6 @@ class LikeController extends Controller
                 'item_id' => $item_id,
             ]);
         }
-
         return redirect()->back();
     }
 }

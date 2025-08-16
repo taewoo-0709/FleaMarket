@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Payment;
@@ -123,7 +122,6 @@ class OrderController extends Controller
                 'shipping_building' => $shipping['shipping_building'] ?? '',
             ],
         ]);
-
         return redirect($checkout->url);
     }
 

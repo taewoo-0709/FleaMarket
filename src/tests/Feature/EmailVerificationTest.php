@@ -13,7 +13,7 @@ class EmailVerificationTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function test_registration_sends_verification_email()
+    public function registration_sends_verification_email()
     {
         Notification::fake();
 
@@ -30,7 +30,7 @@ class EmailVerificationTest extends TestCase
     }
 
     /** @test */
-    public function test_redirect_from_verify_notice_to_verify_code()
+    public function redirect_from_verify_notice_to_verify_code()
     {
         $user = User::factory()->create([
         'email_verified_at' => null,
@@ -48,7 +48,7 @@ class EmailVerificationTest extends TestCase
     }
 
     /** @test */
-    public function test_email_verification_redirects_to_items_list()
+    public function email_verification_redirects_to_items_list()
     {
         $user = User::factory()->create([
             'email_verified_at' => null,

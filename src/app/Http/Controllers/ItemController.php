@@ -4,15 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 use App\Models\Item;
 use App\Models\Category;
 use App\Models\Condition;
 use App\Models\Comment;
-
 use App\Http\Requests\ExhibitionRequest;
 use App\Http\Requests\CommentRequest;
-
 
 class ItemController extends Controller
 {
@@ -21,28 +18,31 @@ class ItemController extends Controller
     $tab = $request->input('tab', 'recommend');
     $keyword = $request->input('keyword');
 
-    if ($tab === 'mylist' && Auth::check()) {
+    if ($tab === 'mylist') {
+      if (Auth::check()) {
         $items = Item::whereHas('likes', function ($q) {
-                $q->where('user_id', Auth::id());
-            })
-            ->when(!empty($keyword), function ($query) use ($keyword) {
-                return $query->where('title', 'like', '%' . $keyword . '%');
-            })
-            ->latest()
-            ->get();
-    } else {
+          $q->where('user_id', Auth::id());
+        })
+        ->when(!empty($keyword), function ($query) use ($keyword) {
+          return $query->where('title', 'like', '%' . $keyword . '%');
+        })
+        ->latest()
+        ->get();
+      } else {
+          $items = collect();
+        }
+      } else {
         $items = Item::when(Auth::check(), function ($query) {
-                return $query->where('user_id', '!=', Auth::id());
-            })
-            ->when(!empty($keyword), function ($query) use ($keyword) {
-                return $query->where('title', 'like', '%' . $keyword . '%');
-            })
-            ->latest()
-            ->get();
-    }
-
+          return $query->where('user_id', '!=', Auth::id());
+        })
+        ->when(!empty($keyword), function ($query) use ($keyword) {
+          return $query->where('title', 'like', '%' . $keyword . '%');
+        })
+        ->latest()
+        ->get();
+      }
     return view('index', compact('items', 'tab', 'keyword'));
-}
+  }
 
   public function show()
   {
@@ -110,7 +110,6 @@ class ItemController extends Controller
         $user->likedItems()->syncWithoutDetaching([$item->id]);
         $liked = true;
     }
-
     return redirect()->back();
   }
 }

@@ -20,7 +20,7 @@
         <a class="header-nav__mypage" href="/mypage">マイページ</a>
       </li>
       <li>
-      <a class="header-nav__sell" href="/sell">出品</a>
+        <a class="header-nav__sell" href="/sell">出品</a>
       </li>
     @else
       <li>

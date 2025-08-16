@@ -5,13 +5,11 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
-use App\Models\Category;
 use App\Models\Condition;
 
 
 class ItemsTableSeeder extends Seeder
 {
-
     public function run()
     {
         $condition_verygood = Condition::where('condition_kind', '良好')->first();
@@ -125,6 +123,7 @@ class ItemsTableSeeder extends Seeder
 
         DB::table('items')->insert($items);
     }
+
     private function getRandomUserId(array $userIds)
     {
         return $userIds[array_rand($userIds)];
