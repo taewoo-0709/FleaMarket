@@ -4,7 +4,7 @@
 
 Docker ビルド
 
-・  git clone git@github.com:taewoo-0709/confirmation-test.git
+・  git clone git@github.com:taewoo-0709/confirmation-test.git<br>
 ・  docker-compose up -d --build
 
 ＊MySQL は、OS によって起動しない場合があるのでそれぞれの PC に合わせて docker-compose.yml ファイルを編集してください。
