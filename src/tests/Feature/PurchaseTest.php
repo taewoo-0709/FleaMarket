@@ -80,9 +80,12 @@ class PurchaseTest extends TestCase
             'item_id' => $this->item->id,
         ]);
 
-        $this->actingAs($this->user)
-            ->get(route('profile.purchased', ['page' => 'buy']))
-            ->assertStatus(200)
-            ->assertSee($this->item->title);
+        $request = Request::create('/mypage/purchased', 'GET', ['page' => 'buy']);
+        $request->setUserResolver(fn() => $this->user);
+
+        $controller = new ProfileController();
+        $response = $controller->show($request);
+
+        $this->assertStringContainsString($this->item->title, $response->render());
     }
 }

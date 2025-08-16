@@ -58,7 +58,7 @@ class LoginTest extends TestCase
             'email' => 'test@example.com',
             'password' => 'password123',
         ])
-        ->assertRedirect('/');
+        ->assertRedirect('/verify-code');
 
         $this->assertAuthenticatedAs($user);
     }

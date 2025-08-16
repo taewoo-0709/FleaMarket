@@ -5,10 +5,8 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\User;
-use App\Notifications\CustomVerifyEmail;
+use App\Notifications\CodeVerifyNotification;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Auth\Events\Registered;
 
 class EmailVerificationTest extends TestCase
 {
@@ -19,60 +17,78 @@ class EmailVerificationTest extends TestCase
     {
         Notification::fake();
 
-        $user = User::factory()->create(['email_verified_at' => null]);
+        // ゲストとしてユーザー登録（actingAsは不要）
+        $response = $this->post('/register', [
+            'name' => 'テストユーザー',
+            'email' => 'test@example.com',
+            'password' => 'password123',
+            'password_confirmation' => 'password123',
+        ]);
 
-        event(new Registered($user));
+        $user = User::where('email', 'test@example.com')->first();
 
-        Notification::assertSentTo([$user], CustomVerifyEmail::class);
+        Notification::assertSentTo($user, CodeVerifyNotification::class);
     }
 
     /** @test */
-    public function email_verification_notice_page_shows_button()
+    public function user_can_verify_email_with_correct_code()
     {
-        $user = User::factory()->create(['email_verified_at' => null]);
+        $user = User::factory()->create([
+            'email_verified_at' => null,
+        ]);
 
-        $this->actingAs($user)
-            ->get(route('verification.notice'))
-            ->assertStatus(200)
-            ->assertSee('認証はこちらから')
-            ->assertSee('認証メールを再送する');
-    }
+        $code = 1234;
 
-    /** @test */
-    public function user_can_verify_email_and_is_redirected_to_home()
-    {
-        $user = User::factory()->create(['email_verified_at' => null]);
+        session([
+            'verification_code' => $code,
+            'registered_user' => $user->id
+        ]);
 
-        $verificationUrl = URL::temporarySignedRoute(
-            'verification.verify',
-            now()->addMinutes(60),
-            ['id' => $user->id, 'hash' => sha1($user->email)]
-        );
-
-        $this->actingAs($user)
-            ->get($verificationUrl)
-            ->assertRedirect('/items');
+        $this->post('/verify-code', [
+            'code' => str_split($code)
+        ])->assertRedirect(route('items.list'));
 
         $this->assertTrue($user->fresh()->hasVerifiedEmail());
     }
 
     /** @test */
-    public function verified_user_can_access_home_with_verified_middleware()
-    {
-        $user = User::factory()->create(['email_verified_at' => now()]);
-
-        $this->actingAs($user)
-            ->get('/')
-            ->assertStatus(200);
-    }
-
-    /** @test */
-    public function unverified_user_is_redirected_to_verification_notice()
+    public function user_cannot_verify_email_with_wrong_code()
     {
         $user = User::factory()->create(['email_verified_at' => null]);
 
-        $this->actingAs($user)
-            ->get('/items')
-            ->assertRedirect(route('verification.notice'));
+        session([
+            'verification_code' => 1234,
+            'registered_user' => $user->id
+        ]);
+
+        $this->post('/verify-code', [
+            'code' => [0, 0, 0, 0]
+        ])->assertSessionHas('code_error', '認証コードが違います');
+
+        $this->assertFalse($user->fresh()->hasVerifiedEmail());
+    }
+
+    /** @test */
+    public function unverified_user_cannot_login_and_redirects_to_code_form()
+    {
+        $user = User::factory()->create(['email_verified_at' => null]);
+
+        $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'password123',
+        ])
+        ->assertRedirect(route('verify_code')); // 認証コード入力フォームにリダイレクト
+    }
+
+    /** @test */
+    public function verified_user_can_login_successfully()
+    {
+        $user = User::factory()->create(['email_verified_at' => now()]);
+
+        $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'password123',
+        ])
+        ->assertRedirect(route('items.list'));
     }
 }

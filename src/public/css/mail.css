@@ -1,3 +1,10 @@
+.alert-message {
+    padding: 10px 30px;
+    border-color: #badbcc;
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
 .mail-form {
   max-width: 600px;
   width: 100%;

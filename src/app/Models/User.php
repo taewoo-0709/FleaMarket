@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Notifications\CustomVerifyEmail;
 use App\Models\Item;
 use App\Models\Comment;
 use App\Models\Like;
 use App\Models\Order;
+use App\Notifications\CodeVerifyNotification;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -34,6 +34,11 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function sendEmailVerificationNotification()
+    {
+
+    }
 
     public function items()
     {
@@ -70,10 +75,5 @@ class User extends Authenticatable implements MustVerifyEmail
             'id',
             'item_id'
         );
-    }
-
-    public function sendEmailVerificationNotification()
-    {
-        $this->notify(new CustomVerifyEmail);
     }
 }

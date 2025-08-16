@@ -14,6 +14,6 @@ class CustomLoginResponse implements LoginResponseContract
             return redirect()->route('verification.notice');
         }
 
-        return redirect()->intended('/');
+        return redirect()->route('items.list')->with('message', 'ログインしました。');
     }
 }

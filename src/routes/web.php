@@ -8,14 +8,16 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\LikeController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\EmailVerificationController;
-
+use App\Http\Controllers\EmailCodeController;
 
 Route::get('/email/verify', [EmailVerificationController::class, 'showEmailVerificationNotice'])
     ->name('verification.notice');
-Route::post('/email/verification-notification', [EmailVerificationController::class, 'resend'])
+Route::post('/email/verification-notification', [EmailCodeController::class, 'resend'])
     ->name('verification.send');
-Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
-    ->name('verification.verify');
+
+
+Route::get('/verify-code', [EmailCodeController::class, 'showForm'])->name('verification.code.form');
+Route::post('/verify-code', [EmailCodeController::class, 'verifyCode'])->name('verification.code.submit');
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -23,6 +25,8 @@ Route::get('/login', function () {
 
 Route::get('/', [ItemController::class, 'index']);
 Route::get('/item/{item_id}', [ItemController::class, 'detailShow'])->name('items.detail');
+
+Route::get('/items', [ItemController::class, 'index'])->middleware(['auth', 'verified'])->name('items.list');
 
 Route::middleware('auth')->group(function () {
     Route::post('/item/{item_id}/comment', [ItemController::class, 'postComment']);
@@ -40,10 +44,4 @@ Route::middleware('auth')->group(function () {
     Route::post('/purchase/confirm/{item_id}', [OrderController::class, 'confirm']);
     Route::get('/purchase/success/{item_id}', [OrderController::class, 'success']);
     Route::get('/purchase/cancel/{item_id}', [OrderController::class, 'cancel']);
-
-    Route::get('/items', [ItemController::class, 'index'])->middleware(['auth', 'verified'])
-    ->name('items.list');
-    Route::get('/mypage/purchased', [ProfileController::class, 'show'])
-    ->name('profile.purchased')
-    ->defaults('page', 'buy');
 });
