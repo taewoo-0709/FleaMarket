@@ -16,6 +16,7 @@ Laravel 環境構築
 ・ composer install
 
 ・ .env.example ファイルから.env を作成し、環境変数を変更
+   cp .env.example .env
 
 ・ php artisan key:generate
 
@@ -49,7 +50,7 @@ stripe login
 ※以下からは決済機能を実行する場合、毎回行う必要があります。<br>
 ターミナルを3つ準備してください。<br>
 
-3. ターミナル①でdockerを起動させる<br>
+3. ターミナル①でdockerを起動させておく<br>
 docker-compose up -d --build
 
 4. ターミナル②で送信先にイベントを転送する<br>
@@ -66,7 +67,7 @@ docker-compose up -d --build
 
 5. ターミナル③で stripe trigger payment_intent.succeeded を実行してください。
 
-6. laravel.logなどでwebhook呼び出し記録を確認し、[200]が返っているか確認してください。<br>
+6. laravel.logやターミナルでwebhook呼び出し記録を確認し、[200]が返っているか確認してください。<br>
 ※ログへの記載に関するコードは,app/Http/Controllers/WebhookController.phpに記述しています。
 
 7. 開発サイトからコンビニ支払い・カード支払いを実行してください。
@@ -94,15 +95,29 @@ docker-compose up -d --build
 
 ・支払い完了後、Stripe Webhookによってサーバー側が処理され、ordersテーブルに注文が保存されます。
 
-・コンビニ決済完了後のページ遷移はありませんが、購入処理は完了しているため、商品は「Sold」状態になります。
+・コンビニ決済完了後のページ遷移はありませんが、購入処理は完了しているため、商品は「Sold」状態になります。<br>
+リロードなどして確認をしてください。
 
 ## テスト実施
 ### テスト用データベースの作成・コマンド
 1. MySQLコンテナで、「demo_test」というDBを作成。
-2. php artisan key:generate --env=testing を実行し、.env.testingのAPP_KEY= にアプリケーションキーを追加
+・docker-compose exec mysql bash
+・mysql -u ユーザー名 -p<br>
+  例:mysql -u root -p
+・パスワード + Enter (docker-compose.ymlのMYSQL_ROOT_PASSWORDで指定したパスワードです。)
+  例: root + Enter
+・mysql> CREATE DATABASE demo_test;
+・mysql> SHOW DATABASES;
+※demo_testが追加されているか確認してください。<br>
+
+2. .env.testingのAPP_KEY= にアプリケーションキーを追加<br>
+・docker-compose exec php bash<br>
+・php artisan key:generate --env=testing<br>
+
 3. php artisan config:clear
 4. php artisan migrate --env=testing
-5. php artisan test>
+5. php artisan test
+>>>>>>> 52b99f1 (update)
 
 
 ## ER図
