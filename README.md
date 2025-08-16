@@ -100,14 +100,14 @@ docker-compose up -d --build
 
 ## テスト実施
 ### テスト用データベースの作成・コマンド
-1. MySQLコンテナで、「demo_test」というDBを作成。
-・docker-compose exec mysql bash
+1. MySQLコンテナで、「demo_test」というDBを作成。<br>
+・docker-compose exec mysql bash<br>
 ・mysql -u ユーザー名 -p<br>
-  例:mysql -u root -p
-・パスワード + Enter (docker-compose.ymlのMYSQL_ROOT_PASSWORDで指定したパスワードです。)
-  例: root + Enter
-・mysql> CREATE DATABASE demo_test;
-・mysql> SHOW DATABASES;
+  例:mysql -u root -p<br>
+・パスワード + Enter (docker-compose.ymlのMYSQL_ROOT_PASSWORDで指定したパスワードです。)<br>
+  例: root + Enter<br>
+・mysql> CREATE DATABASE demo_test;<br>
+・mysql> SHOW DATABASES;<br>
 ※demo_testが追加されているか確認してください。<br>
 
 2. .env.testingのAPP_KEY= にアプリケーションキーを追加<br>
