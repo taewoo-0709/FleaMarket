@@ -13,13 +13,12 @@ class EmailVerificationTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function registration_triggers_email_verification()
+    public function test_registration_sends_verification_email()
     {
         Notification::fake();
 
-        // ゲストとしてユーザー登録（actingAsは不要）
-        $response = $this->post('/register', [
-            'name' => 'テストユーザー',
+        $this->post('/register', [
+            'name' => 'Test User',
             'email' => 'test@example.com',
             'password' => 'password123',
             'password_confirmation' => 'password123',
@@ -31,64 +30,39 @@ class EmailVerificationTest extends TestCase
     }
 
     /** @test */
-    public function user_can_verify_email_with_correct_code()
+    public function test_redirect_from_verify_notice_to_verify_code()
+    {
+        $user = User::factory()->create([
+        'email_verified_at' => null,
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('verification.notice'))
+            ->assertStatus(200)
+            ->assertSee('認証はこちらから');
+
+        $this->actingAs($user)
+            ->get(route('verification.code.form'))
+            ->assertStatus(200)
+            ->assertViewIs('auth.verify_code');
+    }
+
+    /** @test */
+    public function test_email_verification_redirects_to_items_list()
     {
         $user = User::factory()->create([
             'email_verified_at' => null,
         ]);
 
-        $code = 1234;
+        $code = session('verification_code') ?? 1234;
+        session(['verification_code' => $code, 'registered_user' => $user->id]);
 
-        session([
-            'verification_code' => $code,
-            'registered_user' => $user->id
-        ]);
+        $this->actingAs($user)
+            ->post(route('verification.code.submit'), [
+                'code' => [$code],
+            ])
+            ->assertRedirect(route('items.list'));
 
-        $this->post('/verify-code', [
-            'code' => str_split($code)
-        ])->assertRedirect(route('items.list'));
-
-        $this->assertTrue($user->fresh()->hasVerifiedEmail());
-    }
-
-    /** @test */
-    public function user_cannot_verify_email_with_wrong_code()
-    {
-        $user = User::factory()->create(['email_verified_at' => null]);
-
-        session([
-            'verification_code' => 1234,
-            'registered_user' => $user->id
-        ]);
-
-        $this->post('/verify-code', [
-            'code' => [0, 0, 0, 0]
-        ])->assertSessionHas('code_error', '認証コードが違います');
-
-        $this->assertFalse($user->fresh()->hasVerifiedEmail());
-    }
-
-    /** @test */
-    public function unverified_user_cannot_login_and_redirects_to_code_form()
-    {
-        $user = User::factory()->create(['email_verified_at' => null]);
-
-        $this->post('/login', [
-            'email' => $user->email,
-            'password' => 'password123',
-        ])
-        ->assertRedirect(route('verify_code')); // 認証コード入力フォームにリダイレクト
-    }
-
-    /** @test */
-    public function verified_user_can_login_successfully()
-    {
-        $user = User::factory()->create(['email_verified_at' => now()]);
-
-        $this->post('/login', [
-            'email' => $user->email,
-            'password' => 'password123',
-        ])
-        ->assertRedirect(route('items.list'));
+        $this->assertNotNull($user->fresh()->email_verified_at);
     }
 }

@@ -31,7 +31,7 @@ class EmailCodeController extends Controller
             Auth::login($user);
             session()->forget(['verification_code', 'registered_user']);
 
-            return redirect()->route('items.list')->with('message', 'メール認証が完了しました。');
+            return redirect()->route('items.list')->with('message', 'ログインしました。');
         }
 
         return back()->with('code_error', '認証コードが違います');

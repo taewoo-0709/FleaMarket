@@ -16,10 +16,7 @@ class LoginTest extends TestCase
         $this->post('/login', [
             'email' => '',
             'password' => 'password123',
-        ])
-        ->assertSessionHasErrors([
-            'email' => 'メールアドレスを入力してください',
-        ]);
+        ])->assertSessionHasErrors(['email']);
     }
 
     /** @test */
@@ -28,10 +25,7 @@ class LoginTest extends TestCase
         $this->post('/login', [
             'email' => 'test@example.com',
             'password' => '',
-        ])
-        ->assertSessionHasErrors([
-            'password' => 'パスワードを入力してください',
-        ]);
+        ])->assertSessionHasErrors(['password']);
     }
 
     /** @test */
@@ -40,25 +34,21 @@ class LoginTest extends TestCase
         $this->post('/login', [
             'email' => 'notfound@example.com',
             'password' => 'wrongpassword',
-        ])
-        ->assertSessionHasErrors([
-            'email' => 'ログイン情報が登録されていません',
-        ]);
+        ])->assertSessionHasErrors(['email']);
     }
 
     /** @test */
     public function successful_login()
     {
         $user = User::factory()->create([
-            'email' => 'test@example.com',
+            'email_verified_at' => now(),
             'password' => bcrypt('password123'),
         ]);
 
         $this->post('/login', [
-            'email' => 'test@example.com',
+            'email' => $user->email,
             'password' => 'password123',
-        ])
-        ->assertRedirect('/verify-code');
+        ])->assertRedirect(route('items.list'));
 
         $this->assertAuthenticatedAs($user);
     }

@@ -7,7 +7,9 @@ use App\Models\User;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\Payment;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Http\Controllers\ProfileController;
 
 class PurchaseTest extends TestCase
 {
@@ -79,6 +81,8 @@ class PurchaseTest extends TestCase
             'user_id' => $this->user->id,
             'item_id' => $this->item->id,
         ]);
+
+        $this->actingAs($this->user);
 
         $request = Request::create('/mypage/purchased', 'GET', ['page' => 'buy']);
         $request->setUserResolver(fn() => $this->user);
