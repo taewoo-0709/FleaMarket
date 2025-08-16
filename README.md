@@ -99,10 +99,10 @@ docker-compose up -d --build
 ## テスト実施
 ### テスト用データベースの作成・コマンド
 1. MySQLコンテナで、「demo_test」というDBを作成。
-2. ＜php artisan key:generate --env=testing＞を実行し、.env.testingのAPP_KEY= にアプリケーションキーを追加
-3. <php artisan config:clear>
-4. <php artisan migrate --env=testing>
-5. <php artisan test>
+2. php artisan key:generate --env=testing を実行し、.env.testingのAPP_KEY= にアプリケーションキーを追加
+3. php artisan config:clear
+4. php artisan migrate --env=testing
+5. php artisan test>
 
 
 ## ER図
