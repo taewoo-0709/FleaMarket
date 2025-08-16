@@ -117,7 +117,6 @@ docker-compose up -d --build
 3. php artisan config:clear
 4. php artisan migrate --env=testing
 5. php artisan test
->>>>>>> 52b99f1 (update)
 
 
 ## ER図
