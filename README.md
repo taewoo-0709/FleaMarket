@@ -5,6 +5,7 @@
 Docker ビルド
 
 ・  git clone git@github.com:taewoo-0709/confirmation-test.git<br>
+・ dataファイルはセキュリティの観念から追跡を外しています。自作してください。
 ・  docker-compose up -d --build
 
 ＊MySQL は、OS によって起動しない場合があるのでそれぞれの PC に合わせて docker-compose.yml ファイルを編集してください。
