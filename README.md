@@ -4,7 +4,7 @@
 
 Docker ビルド
 
-・  git clone git@github.com:taewoo-0709/confirmation-test.git<br>
+・  git clone git@github.com:taewoo-0709/FleaMarket.git<br>
 ・ dataファイルはセキュリティの観念から追跡を外しています。自作してください。<br>
 ・  docker-compose up -d --build
 
