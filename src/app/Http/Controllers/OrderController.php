@@ -78,6 +78,8 @@ class OrderController extends Controller
             'shipping_building' => $user->building,
         ];
 
+        Log::info('Shipping used for test order', $shipping);
+
         $payment_id = $request->input('payment_id');
         session(['payment_id' => $payment_id]);
 

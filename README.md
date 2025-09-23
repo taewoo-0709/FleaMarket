@@ -46,7 +46,9 @@ mailhogを使用しています。<br>
 https://stripe.com/docs/stripe-cli
 
 2. Stripe CLIにログイン(初回のみ)<br>
-stripe login
+stripe login<br>
+<br>
+コマンドを実行した際に出されたリンクを押すと、Stripeのサイトへ遷移するので、そこで認証作業を行なってください。
 
 ※以下からは決済機能を実行する場合、毎回行う必要があります。<br>
 ターミナルを3つ準備してください。<br>
@@ -63,7 +65,7 @@ docker-compose up -d --build
 成功すると、Webhook signing secret が表示されます。これを .env に設定してください。<br>
 例：STRIPE_WEBHOOK_SECRET=whsec_XXXXXXXXXXXXXXXXXX <br>
 
- ※.envファイルにSTRIPE_SECRET=sk_test_...をStripe CLIのAPIキーからコピー&ペーストしてください。<br>
+ ※.envファイルにSTRIPE_SECRET=sk_test_...を自身のStripeダッシュボードのAPIキーからコピー&ペーストしてください。<br>
  ※.envファイルを操作したらキャッシュクリアをするか、dockerの再ビルドをしてください。<br>
 
 5. ターミナル③で stripe trigger payment_intent.succeeded を実行してください。
