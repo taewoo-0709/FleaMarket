@@ -10,6 +10,7 @@ use App\Http\Requests\AddressRequest;
 use App\Http\Requests\PurchaseRequest;
 use Stripe\Stripe;
 use Stripe\Checkout\Session as StripeSession;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
