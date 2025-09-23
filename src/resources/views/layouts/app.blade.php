@@ -12,7 +12,9 @@
 <body>
   <div class="app">
     <header class="header">
-      <img src="{{ asset('images/logo.svg') }}" alt="ヘッダーロゴ">
+      <a href="{{ url('/') }}">
+        <img src="{{ asset('images/logo.svg') }}" alt="ヘッダーロゴ">
+      </a>
       @yield('link')
     </header>
     <div class="content">
